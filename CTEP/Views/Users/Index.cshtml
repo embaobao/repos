@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CTEP.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MAIL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PW)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_ROLE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MAIL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PW)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_ROLE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_STA)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

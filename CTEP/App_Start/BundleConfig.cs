@@ -25,6 +25,40 @@ namespace CTEP
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/user/css").Include(
+                     "~/Content/bootstrap.min.css",
+                     "~/Content/ef.css",
+                     "~/Content/jquery-ui.min.css",
+                     "~/Content/normalize.css",
+                      "~/Content/main.css",
+                     "~/Content/sidebar.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/user/main").Include(
+                     "~/Scripts/jquery.min.js",
+                     "~/Scripts/iconfont.js",
+                     "~/Scripts/snap.svg-min.js",
+                     "~/Scripts/popper.min.js",
+                     "~/Scripts/bootstrap.min.js",
+                     "~/Scripts/base64.js",
+                     "~/Scripts/layer.js",
+                    "~/Scripts/cookie.js"
+                     ));
+
+            bundles.Add(new ScriptBundle("~/bundles/user/pos").Include(
+               "~/Scripts/pos.js",
+                   "~/Scripts/main.js"
+                 ));
+            
+                   
+
+            bundles.Add(new ScriptBundle("~/bundles/user/dater").Include(
+                "~/Scripts/laydate.js"
+                   ));
+            bundles.Add(new ScriptBundle("~/bundles/user/register").Include(
+               "~/Scripts/register.js"
+                  ));
+
         }
     }
 }

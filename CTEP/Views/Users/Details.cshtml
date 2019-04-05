@@ -1,0 +1,50 @@
+﻿@model CTEP.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PW)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PW)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_ROLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_ROLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_STA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -133,34 +141,160 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Academy.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClassName.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Community.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseTemp.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTEMP.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CTEMP.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTEMP.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CTEMP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CTEMP.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Evalution.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EvalutionForm.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EvalutionTemp.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Grade.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MsItem.cs" />
+    <Compile Include="Models\MsList.cs" />
+    <Compile Include="Models\Mssage.cs" />
+    <Compile Include="Models\Tools.cs" />
+    <Compile Include="Models\University.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserBundTable.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserInfo.cs">
+      <DependentUpon>CTEMP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\background.png" />
+    <Content Include="Content\images\biu.png" />
+    <Content Include="Content\images\boom.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\community.png" />
+    <Content Include="Content\images\course.png" />
+    <Content Include="Content\images\ctep.png" />
+    <Content Include="Content\ef.css" />
+    <Content Include="Content\images\email.png" />
+    <Content Include="Content\images\erro.png" />
+    <Content Include="Content\images\error %281%29.png" />
+    <Content Include="Content\images\error.png" />
+    <Content Include="Content\images\evaluation.png" />
+    <Content Include="Content\images\findpw.png" />
+    <Content Include="Content\images\history.png" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\images\left.png" />
+    <Content Include="Content\images\Lock-Mail.png" />
+    <Content Include="Content\images\Lock-Screen.png" />
+    <Content Include="Content\images\lock.png" />
+    <Content Include="Content\images\login.png" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\normalize.css" />
+    <Content Include="Content\images\register.1.png" />
+    <Content Include="Content\images\register.png" />
+    <Content Include="Content\images\right.png" />
+    <Content Include="Content\images\rj.course.jpg" />
+    <Content Include="Content\images\role.png" />
+    <Content Include="Content\sidebar.css" />
+    <Content Include="Content\images\squre.png" />
+    <Content Include="Content\images\timg.jpg" />
+    <Content Include="Content\images\toptrandown.png" />
+    <Content Include="Content\images\transfer.png" />
+    <Content Include="Content\images\true %281%29.png" />
+    <Content Include="Content\images\true.png" />
+    <Content Include="Content\images\user.1.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\write.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\CTEMP.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CTEMP.edmx</DependentUpon>
+      <LastGenOutput>CTEMP.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CTEMP.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CTEMP.edmx</DependentUpon>
+      <LastGenOutput>CTEMP.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\base.js" />
+    <Content Include="Scripts\base64.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\CTEMP.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CTEMP.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CTEMP.edmx.diagram">
+      <DependentUpon>CTEMP.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\cookie.js" />
+    <Content Include="Scripts\iconfont.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\laydate.js" />
+    <Content Include="Scripts\layer.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\pos.js" />
+    <Content Include="Scripts\register.js" />
+    <Content Include="Scripts\snap.svg-min.js" />
+    <Content Include="Scripts\sortable.js" />
+    <Content Include="Scripts\tempCodeRunnerFile.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -175,10 +309,17 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Shared\_NoneLay.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -192,6 +333,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
