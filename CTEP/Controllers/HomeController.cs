@@ -13,6 +13,32 @@ namespace CTEP.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+        public ActionResult Evalution()
+        {
+            return View();
+        }
+        public ActionResult Histroy()
+        {
+            return View();
+        }
+        public ActionResult Login()
+        {
+            return View();
+        }
+        public ActionResult Community()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

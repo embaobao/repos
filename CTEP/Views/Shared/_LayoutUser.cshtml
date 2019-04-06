@@ -12,8 +12,15 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
-    @Styles.Render("~/Content/user/css")
-    @Scripts.Render("~/bundles/user/main")
+
+    @Styles.Render("~/style/base")
+    @Styles.Render("~/style/menu")
+    @Scripts.Render("~/js/base")
+    @Scripts.Render("~/js/ui")
+    @RenderSection("head", false)
+    <style>
+    @RenderSection("style",false)
+    </style>
 </head>
 <body>
 
@@ -23,7 +30,7 @@
             <ul>
 
                 <li>
-                    <a id="login" href="index.html">
+                    <a id="login" href="@Url.RouteUrl(new { Control="Home",Action="Index"})">
                         <p align="center">
                             <span>
                                 Bui
@@ -35,7 +42,8 @@
                 </li>
 
                 <li>
-                    <a href="Evalution.html">
+                    
+                    <a href="@Url.RouteUrl(new { Control="Home",Action="Evalution"})">
                         <p align="center">
                             <span>
                                 判
@@ -46,7 +54,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="History.html">
+                    <a href="@Url.RouteUrl(new { Control="Home",Action="Histroy"})">
+                      
                         <p align="center">
                             <span>
                                 观
@@ -57,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="Community.html">
+                    <a href="@Url.RouteUrl(new { Control="Home",Action="Community"}) ">
                         <p align="center">
                             <span>
                                 语
@@ -69,10 +78,10 @@
                     </a>
                 </li>
                 <li>
-                    <a href="Edit.html">
+                    <a href="@Url.RouteUrl(new { Control="Home",Action="Edit"})">
                         <p align="center">
                             <span>
-                                书
+                                撰
                                 <img src="../Content/images/write.png" class=" img-thumbnail img-fluid" width="36px" />
                                 <span class="badge badge-primary menu-tip-ico">3</span>
                             </span>
@@ -82,7 +91,7 @@
                 </li>
 
                 <li>
-                    <a href="register.html" target="_blank">
+                    <a href="@Url.RouteUrl(new { Control="Home",Action="Login"})" target="_blank">
                         <p align="center">
                             <span>
                                 <img src="../Content/images/register.png" class=" img-thumbnail img-fluid" width="32px" />
@@ -116,9 +125,9 @@
         </span>
 
     </nav>
-
-
-    @RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
 
     <nav class="nav justify-content-center navbar-light  ">
         <span class="navbar-text">
@@ -135,65 +144,7 @@
         </ul>
     </nav>
 
-
-    <script>
-            (function() {
-
-
-                function SVGMenu(el, options) {
-                    this.el = el;
-                    this.init();
-                }
-
-                SVGMenu.prototype.init = function() {
-                    this.trigger = this.el.querySelector('button.menu__handle');
-                    this.shapeEl = this.el.querySelector('div.morph-shape');
-
-                    var s = Snap(this.shapeEl.querySelector('svg'));
-                    this.pathEl = s.select('path');
-                    this.paths = {
-                        reset: this.pathEl.attr('d'),
-                        open: this.shapeEl.getAttribute('data-morph-open'),
-                        close: this.shapeEl.getAttribute('data-morph-close')
-                    };
-
-                    this.isOpen = false;
-
-                    this.initEvents();
-                };
-
-                SVGMenu.prototype.initEvents = function() {
-                    this.trigger.addEventListener('click', this.toggle.bind(this));
-                };
-
-                SVGMenu.prototype.toggle = function() {
-                    var self = this;
-
-                    if (this.isOpen) {
-                        classie.remove(self.el, 'menu--anim');
-                        setTimeout(function() {
-                            classie.remove(self.el, 'menu--open');
-                        }, 250);
-                    } else {
-                        classie.add(self.el, 'menu--anim');
-                        setTimeout(function() {
-                            classie.add(self.el, 'menu--open');
-                        }, 250);
-                    }
-                    this.pathEl.stop().animate({
-                        'path': this.isOpen ? this.paths.close : this.paths.open
-                    }, 350, mina.easeout, function() {
-                        self.pathEl.stop().animate({
-                            'path': self.paths.reset
-                        }, 800, mina.elastic);
-                    });
-
-                    this.isOpen = !this.isOpen;
-                };
-
-                new SVGMenu(document.getElementById('menu'));
-
-            })();
-    </script>
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/end")
 </body>
 </html>

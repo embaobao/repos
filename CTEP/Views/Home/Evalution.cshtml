@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Evalution";
+}
+@section style{
+
+
+    #efList .alert {
+    width: 14rem;
+    }
+
+    #efList .card {
+    border: 1px solid gray;
+    border-radius: 1rem;
+    width: 14rem;
+    font-size: small;
+    }
+    .card-body .table{
+    margin: 0 auto;
+    }
+
+
+
+}
+
+
+<div id="efList" class="container  justify-content-around  d-flex mb-3 flex-wrap">
+    <div class="alert  alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div class="card">
+
+            <div class="card-header text-info">软件工程导论</div>
+         
+            <img class="card-img-top img-thumbnail img-fluid mx-auto " src="../content/images/timg.jpg" alt="Card image" style="height:5em;width:5em;">
+            <div class="card-body ">
+                <span >课程描述</span>
+                <table class="table table-sm table-responsive table-hover text-muted">
+                    <thead>
+                        <tr>
+                            <th>授课人:</th>
+                            <th>马有忠</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>开始时间:</td>
+                            <td>9-22-10:00</td>
+                        </tr>
+                        <tr>
+                            <td>结束时间:</td>
+                            <td>9-22-10:00</td>
+                        </tr>
+                        <tr>
+                            <td>分数:</td>
+                            <td>99.99</td>
+
+                        </tr>
+                        <tr>
+                            <td>评价人数:</td>
+                            <td>24</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-footer">
+                <a href="#">评价</a>
+            </div>
+        </div>
+    </div>
+
+
+</div>

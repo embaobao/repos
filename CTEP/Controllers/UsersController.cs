@@ -10,15 +10,72 @@ using CTEP.Models;
 
 namespace CTEP.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private CTEMPEntities db = new CTEMPEntities();
+
+
+
+
+
+        
+
+
+
+        /// <summary>
+        /// 注册接口
+        /// </summary>
+        /// <param name="user">绑定用户对象</param>
+        /// <returns>用户对象 id小于0 则登录失败</returns>
+        [HttpPost]
+        [Obsolete]
+        public ActionResult Register([Bind(Include = "ID,MAIL,PW,C_ROLE,C_STA")] User user)
+        {
+            try
+            {
+                //new User() { MAIL = user.MAIL, PW = user.PW, C_ROLE = user.C_ROLE, C_STA = 1 } )
+                if (SendMail(SetObject<User,int>(user, "C_STA", 1))) 
+                {
+                    AddData<User>(SetObject<User, int>(user, "C_STA", 0));
+                }
+            }
+            catch (Exception)
+            {
+                return Json(false);
+            }
+            return Json(true);
+        }
+
+
+        [HttpGet]
+        public ActionResult AccountActive(string user)
+        {
+            User u = null;
+            ViewBag.Title = "EMB账户激活";
+            try
+            {
+                u = Tools.FromBase64<User>(user);
+                ChangeData<User>(u);
+                ViewBag.txt = "EMB-账户:" + u.MAIL + "激活成功！";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.txt = "EMB-账户激活失败！错误：" + ex.ToString();
+            }
+            return View();
+        }
+
+
+
 
         // GET: Users
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
+
+      
+
+
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
@@ -115,6 +172,12 @@ namespace CTEP.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+
+        
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -123,5 +186,9 @@ namespace CTEP.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
     }
 }
