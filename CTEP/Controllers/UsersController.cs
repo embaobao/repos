@@ -17,7 +17,7 @@ namespace CTEP.Controllers
 
 
 
-        
+
 
 
 
@@ -33,14 +33,16 @@ namespace CTEP.Controllers
             try
             {
                 //new User() { MAIL = user.MAIL, PW = user.PW, C_ROLE = user.C_ROLE, C_STA = 1 } )
-                if (SendMail(SetObject<User,int>(user, "C_STA", 1))) 
+
+                //SendMail(SetObject<User, int>(user, "C_STA", 1))
+                if (SendMail(SetObject<User, int>(user, "C_STA", 1)))
                 {
                     AddData<User>(SetObject<User, int>(user, "C_STA", 0));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return Json(false);
+                return Json(ex.ToString());
             }
             return Json(true);
         }
@@ -54,8 +56,17 @@ namespace CTEP.Controllers
             try
             {
                 u = Tools.FromBase64<User>(user);
-                ChangeData<User>(u);
-                ViewBag.txt = "EMB-账户:" + u.MAIL + "激活成功！";
+                u.ID = HasMail(u.MAIL);
+                if (ChangeData<User>(u))
+                {
+                    ViewBag.txt = "EMB-账户:" + u.MAIL + "激活成功！";
+                }
+                else
+                {
+                    ViewBag.txt = "EMB-账户激活失败！错误码："+":"+u.C_STA;
+                }
+                
+
             }
             catch (Exception ex)
             {
@@ -73,7 +84,7 @@ namespace CTEP.Controllers
             return View(db.Users.ToList());
         }
 
-      
+
 
 
 
@@ -175,7 +186,7 @@ namespace CTEP.Controllers
 
 
 
-        
+
 
 
         protected override void Dispose(bool disposing)

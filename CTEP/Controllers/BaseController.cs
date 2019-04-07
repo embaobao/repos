@@ -71,6 +71,7 @@ namespace CTEP.Controllers
 
             try
             {
+               
                 if (ModelState.IsValid)
                 {
                     db.Entry(val).State = EntityState.Modified;
@@ -80,12 +81,16 @@ namespace CTEP.Controllers
             }
             catch (Exception)
             {
-
+                throw;
                 return false;
+                
             }
 
             return true;
 
+        }
+        public int HasMail(string mail) {
+            return db.Users.Where(x => x.MAIL == mail).AsNoTracking().FirstOrDefault().ID;
         }
 
         public bool DeletedData<T>(T val)
@@ -141,8 +146,8 @@ namespace CTEP.Controllers
 
                 obj = Activator.CreateInstance(t);
 
-                obj = oObj;
 
+                obj = oObj;
                 ////取得ID字段 
                 //FieldInfo fi = t.GetField(key);
                 ////给ID字段赋值 
@@ -151,18 +156,20 @@ namespace CTEP.Controllers
                 //取得属性 
                 PropertyInfo pi = t.GetProperty(key);
 
-                //给属性赋值 
-                pi.SetValue(obj, val, null);
+                
+               //给属性赋值 
+               pi.SetValue(obj, val, null);
                 ////取得show方法 
                 //MethodInfo mi = t.GetMethod("show");
                 ////调用show方法 
                 //mi.Invoke(obj, null);
+
+               
                 
             }
             catch (Exception)
             {
-
-                 return new T() { };
+                 return oObj;
             }
             return (T)obj;
         }

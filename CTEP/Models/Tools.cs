@@ -10,7 +10,7 @@ namespace CTEP.Models
     {
 
 
-        public static string BaseUrl = "http://localhost:55810/";
+        public static string BaseUrl = "http://localhost:50046/";
         /// <summary>
         /// 对象转化成Json
         /// </summary>

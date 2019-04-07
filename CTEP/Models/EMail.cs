@@ -145,7 +145,7 @@ namespace CTEP.Models
                 //邮件的内容
                 this.Message.Body =string.Format("尊敬的{0}您好!<br/>请您点击以下链接 -》<a href=\"{1}\" target=\"_blank\">激活您的账户邮箱</a>"
                     ,user.MAIL
-                    ,Tools.BaseUrl+ "User/AccountActive?user="+Tools.ToBase64<User>(user));
+                    ,Tools.BaseUrl+ "Users/AccountActive?user="+Tools.ToBase64<User>(user));
                 //创建连接身份验证  如果是163 账户不用加@163.com
                 this.SendClient.Credentials = new NetworkCredential(this.ID, this.PassWord);
                 // 客户端发送 邮件信息对象

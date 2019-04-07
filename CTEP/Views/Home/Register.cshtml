@@ -202,16 +202,17 @@
             var roleVal = $("#role");
             var emilIco = $("#emailico");
             var pwIco = $("#pwico");
-            var BaseUrl = "http://localhost:55810/User/";
+
             var user = {
-                id: -1,
-                email: '',
-                role: 0,
-                pw: ''
+                ID: -1,
+                MAIL: '',
+                C_ROLE: 0,
+                PW: '',
+                C_STA:0
             };
 
             function changeIco(e, img) {
-                e.attr("src", "images/app/" + img + ".png");
+                e.attr("src", "../content/images/" + img + ".png");
             }
 
 
@@ -222,8 +223,8 @@
 
 
             roleVal.bind("input propertychange", function (event) {
-                user.role = roleVal.val();
-                console.log("角色设定:" + user.role);
+                user.C_ROLE = roleVal.val();
+                console.log("角色设定:" + user.C_ROLE);
             });
 
 
@@ -246,9 +247,9 @@
 
             });
             emialTxt.change(function () {
-                user.email = emialTxt.val();
-                console.log("用户邮箱设定:" + user.email);
-                $.post(BaseUrl + "IsMail", { email: user.email },
+                user.MAIL = emialTxt.val();
+                console.log("用户邮箱设定:" + user.MAIL);
+                $.post("@Url.Action("IsMail","Users")", { MAIL: user.MAIL },
                     function (data, status) {
                         if (status === "success") {
                             console.log(page);
@@ -280,8 +281,8 @@
             });
 
             pwTxt.bind("input propertychange", function () {
-                user.pw = pwTxt.val();
-                console.log("用户密码设定:" + user.pw);
+                user.PW = pwTxt.val();
+                console.log("用户密码设定:" + user.PW);
 
             });
 
@@ -334,18 +335,26 @@
 
 
             RegesterBt.click(function () {
-                user.email = emialTxt.val();
-                user.role = roleVal.val();
-                user.pw = pwTxt.val();
+                user.MAIL = emialTxt.val();
+                user.C_ROLE = roleVal.val();
+                user.PW = pwTxt.val();
 
 
                 try {
 
-                    $.post(BaseUrl + "Register", user,
+                    $.post( "@Url.Action("Register","Users")", user,
                         function (data, status) {
                             if (data) {
                                 console.log("ok");
                                 pushCookie(user);
+
+
+                                layer.open({ title: "注册成功！", content: "<h4>激活邮箱去吧! </h4><small><hr/> 提醒： 有时候邮箱飞的有些慢，耐心等等看 ！<br/>当然也可能是 激活邮件在你的广告邮箱里面，找找看哦！... </small>" });
+                           
+
+           
+ 
+
                                 // window.location.href="index.html";
                             }
                             // alert("数据: \n" + data + "\n状态: " + status);
@@ -364,17 +373,20 @@
 
             LoginBt.click(function () {
                 console.log("开始登陆");
-                user.email = emialTxt.val();
-                user.role = roleVal.val();
-                user.pw = pwTxt.val();
+                user.MAIL = emialTxt.val();
+                user.C_ROLE = roleVal.val();
+                user.PW = pwTxt.val();
                 try {
-                    $.post(BaseUrl + "Login", user,
+                    $.post("@Url.Action("Login","Users")", user,
                         function (data, status) {
                             if (status === "success") {
-                                if (data.id > 0) {
+                                if (data.ID > 0) {
                                     console.log("ok");
                                     pushCookie(data);
-                                    window.location.href = "index.html";
+                                    layer.msg("进入浪漫土耳其...",{ icon: 1  });
+
+
+                                    window.location.href = "@Url.Action("Index","Home")";
                                 }
 
                             }
