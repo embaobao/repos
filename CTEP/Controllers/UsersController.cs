@@ -15,8 +15,49 @@ namespace CTEP.Controllers
 
 
 
+        [HttpGet]
+        public ActionResult TEST(int ? page,int ? limit)
+        {
 
+            return Json(new MsItem(db.Users.ToList()) { } ,JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult IsMail(string MAIL)
+        {
+
+            return HasMail(MAIL) > 0 ? Json(true) : Json(false);
+
+        }
+
+        public ActionResult Login([Bind(Include = "ID,MAIL,PW,C_ROLE,C_STA")] User user) {
+            int i = HasMail(user.MAIL);
+            if (i>0)
+            {
+              User u= db.Users.Find(i);
+                if (user.PW == u.PW)
+                {
+                    return Json(u);//返回对象
+                }
+                else
+                {
+                    return Json(new User() { ID=-1});//密码不对
+                 }
+                
+            }
+            return  Json(new User() { ID = -2 }); //至少一个不对
+        }
+        [HttpGet]
+        public ActionResult Info(int? id)
+        {
+            
+            return Json(db.UserInfoes.Where(x => x.I_UID == id).FirstOrDefault(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult InfoByMail(string mail)
+        {
+            return Json(db.UserInfoes.Find(HasMail(mail)), JsonRequestBehavior.AllowGet);
+        }
 
 
 
@@ -32,13 +73,23 @@ namespace CTEP.Controllers
         {
             try
             {
+
+                if (HasMail(user.MAIL) < 0)
+                {
+                    if (SendMail(SetObject<User, int>(user, "C_STA", 1)))
+                    {
+                        AddData<User>(SetObject<User, int>(user, "C_STA", 0));
+                    }
+
+                }
+                else
+                {
+                    return Json(false);
+                }
                 //new User() { MAIL = user.MAIL, PW = user.PW, C_ROLE = user.C_ROLE, C_STA = 1 } )
 
                 //SendMail(SetObject<User, int>(user, "C_STA", 1))
-                if (SendMail(SetObject<User, int>(user, "C_STA", 1)))
-                {
-                    AddData<User>(SetObject<User, int>(user, "C_STA", 0));
-                }
+
             }
             catch (Exception ex)
             {
@@ -63,9 +114,9 @@ namespace CTEP.Controllers
                 }
                 else
                 {
-                    ViewBag.txt = "EMB-账户激活失败！错误码："+":"+u.C_STA;
+                    ViewBag.txt = "EMB-账户激活失败！错误码：" + ":" + u.C_STA;
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -81,6 +132,8 @@ namespace CTEP.Controllers
         // GET: Users
         public ActionResult Index()
         {
+
+
             return View(db.Users.ToList());
         }
 

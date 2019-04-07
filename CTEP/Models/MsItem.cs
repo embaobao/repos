@@ -12,27 +12,61 @@ namespace CTEP.Models
 
         public object body { get; set; }
 
+        public int lenth { get; set; }
+
         public MsItem()
         {
         }
+        /// <summary>
+        /// 创建MsItem("jsonString",body)
+        /// </summary>
+        /// <param name="val">MsItem Body</param>
         public MsItem(object val) {
             StatusNum = 0;
-            title = "jsonString";
+            title = "";
+            lenth = 1;
             body = JsonConvert.SerializeObject(val);
         }
+        /// <summary>
+        /// 创建MsItem (title,body)
+        /// </summary>
+        /// <param name="title">MsItem title</param>
+        /// <param name="val">MsItem Body</param>
         public MsItem(string title,object val)
         {
             StatusNum = 0;
+           
+            lenth = 1;
             this.title = title;
             body = JsonConvert.SerializeObject(val);
         }
+        /// <summary>
+        /// 创建MsItem (StatusNum，title,body)
+        /// </summary>
+        /// <param name="status">MsItem StatusNum</param>
+        /// <param name="title">MsItem title </param>
+        /// <param name="val">MsItem body</param>
         public MsItem(int status,string title, object val)
         {
             this.StatusNum = status;
             this.title = title;
+            lenth = 1;
             this.body = JsonConvert.SerializeObject(val);
         }
-
+        /// <summary>
+        /// 创建MsItem (StatusNum，title,body，lenth)
+        /// </summary>
+        /// <param name="status">MsItem StatusNum</param>
+        /// <param name="title">MsItem title</param>
+        /// <param name="val">MsItem body</param>
+        /// <param name="l">MsItem lenth</param>
+        public MsItem(int status, string title, object val,int l)
+        {
+            this.StatusNum = status;
+            this.title = title;
+            this.lenth = l;
+            this.body = JsonConvert.SerializeObject(val);
+        }
         public object Json(object data)
         {
             JavaScriptSerializer javaScriptSerializer = null;
@@ -61,6 +95,10 @@ namespace CTEP.Models
         public void SetB(object b)
         {
             this.body = b;
+        }
+        public void SetLenth(int l)
+        {
+            this.lenth = l;
         }
 
     }

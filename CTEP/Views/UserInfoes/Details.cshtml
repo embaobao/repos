@@ -1,0 +1,106 @@
+﻿@model CTEP.Models.UserInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UserInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_EV_BD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_EV_BD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Set)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Set)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_CRATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_CRATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_Used)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_Used)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_LastUsed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_LastUsed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_STA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Icon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Icon)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.I_UID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

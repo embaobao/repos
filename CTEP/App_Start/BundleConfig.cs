@@ -37,6 +37,8 @@ namespace CTEP
             bundles.Add(new StyleBundle("~/style/menu").Include(
                      "~/Content/ef.css",
                      "~/Content/sidebar.css"));
+            bundles.Add(new StyleBundle("~/style/layui").Include(
+                     "~/layui/css/layui.css"));
 
             bundles.Add(new ScriptBundle("~/js/base").Include(
                      "~/Scripts/base64.js",
@@ -48,18 +50,20 @@ namespace CTEP
 
             bundles.Add(new ScriptBundle("~/js/ui").Include(
 
+                     "~/Scripts/localforage.min.js",
                      "~/Scripts/jquery-ui.min.js",//依赖 JQ
                      "~/Scripts/bootstrap.min.js",//依赖 JQ
                      "~/Scripts/popper.min.js",//依赖 JQ
                     "~/Scripts/cookie.js"//依赖layer
                      ));
 
-
-
             bundles.Add(new ScriptBundle("~/js/pos").Include(
                "~/Scripts/pos.js",
                    "~/Scripts/main.js"
                  ));
+            bundles.Add(new ScriptBundle("~/js/layui").Include(
+              "~/layui/layui.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/end").Include(
       "~/Scripts/endpage.js"

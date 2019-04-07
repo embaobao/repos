@@ -27,15 +27,16 @@
 
             <div class="alert alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4 class="card-title">Bui！</h4>
-                <p class="card-text">欢迎您使用EMB- CTEP！</p>
+                <h4 class="card-title">Bui！<span class="text-muted" id="welcomTxt"></span></h4>
+
                 <p class="card-text">
-                    Bui！
+
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-emoji_kaixin"></use>
                     </svg>
-                    是您的主页!
+
                 </p>
+                
                 <p class="card-text">我们希望通过 以 [Bui！-推荐信息] 的方式，来简化您的操作.</p>
                 <p> 希望他可以减少您停留在操作的时间！</p>
 
@@ -118,3 +119,33 @@
 
 </div>
 
+<script>
+    
+    $(document).ready(function () {
+
+        var user = {};
+        var userInfo = {};
+        localforage.getItem('emb_user').then(function (value) {
+            // 当离线仓库中的值被载入时，此处代码运行
+
+            user = value;
+            console.log('emb_user↓');
+            console.log(value);
+            $("#welcomTxt").text("尊敬的 " + value.MAIL + "欢迎您使用!");
+            $("#user_name").text(value.MAIL);
+
+        }).catch(function (err) { console.log(err); });
+
+        localforage.getItem('emb_info').then(function (value) {
+            // 当离线仓库中的值被载入时，此处代码运行
+
+            userInfo = value;
+            console.log('emb_info↓');
+            console.log(value); 
+            $("#welcomTxt").text("尊敬的 " + userInfo.S_Name + "欢迎您使用!");
+            $("#user_name").text(userInfo.S_Name);
+        }).catch(function (err) { console.log(err); });
+    })
+
+    
+</script>

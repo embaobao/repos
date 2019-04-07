@@ -89,8 +89,21 @@ namespace CTEP.Controllers
             return true;
 
         }
+        /// <summary>
+        /// 邮箱是否存在
+        /// </summary>
+        /// <param name="mail">mail</param>
+        /// <returns>返回邮箱账户对应ID</returns>
         public int HasMail(string mail) {
-            return db.Users.Where(x => x.MAIL == mail).AsNoTracking().FirstOrDefault().ID;
+            try
+            {
+                return db.Users.Where(x => x.MAIL == mail).AsNoTracking().FirstOrDefault().ID;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            
         }
 
         public bool DeletedData<T>(T val)

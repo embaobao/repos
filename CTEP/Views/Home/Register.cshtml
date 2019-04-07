@@ -191,7 +191,6 @@
             if (getCookie("emb_log") === "login") {
                 setCookie("emb_log", "log", 1);
                 transfer();
-
             }
             var page = 0;
             var isMail = false;
@@ -214,6 +213,43 @@
             function changeIco(e, img) {
                 e.attr("src", "../content/images/" + img + ".png");
             }
+
+            function transfer() {
+                emialTxt.val("");
+                pwTxt.val("");
+                roleVal.val(0);
+                changeIco(emilIco, "email");
+                var logbtg = $("#loginbtg");
+                var regesbtg = $("#regesterbtg");
+                var titleTxt = $("#titleTxt");
+                if (logbtg.css("display") === "none") {
+                    regesbtg.animate({
+                        // opacity: 'toggle',
+                    });
+                    page = 1;
+                     layer.tips('点击我可以切换到注册页面', '#tranLog');
+                    titleTxt.text("EMB-用户登录");
+                    regesbtg.hide();
+                    // regesbtg.css("display","none");
+                    logbtg.show();
+                } else {
+                    logbtg.animate({
+                        // opacity: 'toggle',
+                    });
+                    page = 0;
+                     layer.tips('点击我可以切换到登录页面', '#tranLog');
+                    titleTxt.text("EMB-用户注册");
+                    logbtg.hide();
+                    // logbtg.css("display","none");
+                    regesbtg.show();
+                }
+            }
+
+
+            $("#tranLog").click(function () {
+                transfer();
+                 console.log(" transfePage:"+page);
+            });
 
 
 
@@ -251,22 +287,43 @@
                 console.log("用户邮箱设定:" + user.MAIL);
                 $.post("@Url.Action("IsMail","Users")", { MAIL: user.MAIL },
                     function (data, status) {
-                        if (status === "success") {
-                            console.log(page);
+                        if (status == "success") {
+
                             isMail = data;
                             if (isMail) {
 
-                                if (page === 0) {
+                                if (page == 0) {
                                     changeIco(emilIco, "erro");
+                                      console.log(" 0Page:"+page);
+                                      layer.msg("邮箱已注册");
                                 } else {
                                     changeIco(emilIco, "true");
+                                    layer.msg("账户验证成功");
+                                    console.log(" 1Page:" + page);
+
+                                    $.get("@Url.Action("InfoByMail","Users")" + "?mail=" + user.MAIL, function (info, status) {
+
+                                        localforage.setItem('emb_info', info).then(function (value) {
+                                            console.log(value);
+                                              layer.msg("数据加载中");
+                                     });
+
+                                    });
+
+
                                 }
+
                             }
                             else {
-                                if (page === 0) {
+                                if (page == 0) {
                                     changeIco(emilIco, "true");
+                                     layer.msg("邮箱可注册");
+                                     console.log(" 2Page:"+page);
                                 } else {
                                     changeIco(emilIco, "erro");
+                                    layer.msg("账户邮箱还未注册！");
+                                    layer.tips('点击到注册页面', '#tranLog');
+                                  console.log(" 3Page:"+page);
                                 }
 
                             }
@@ -300,37 +357,6 @@
 
 
 
-            function transfer() {
-                var logbtg = $("#loginbtg");
-                var regesbtg = $("#regesterbtg");
-                var titleTxt = $("#titleTxt");
-                if (logbtg.css("display") === "none") {
-                    regesbtg.animate({
-                        // opacity: 'toggle',
-                    });
-                    page = 1;
-
-                    titleTxt.text("EMB-用户登录");
-                    regesbtg.hide();
-                    // regesbtg.css("display","none");
-                    logbtg.show();
-                } else {
-                    logbtg.animate({
-                        // opacity: 'toggle',
-                    });
-                    page = 0;
-                    titleTxt.text("EMB-用户注册");
-                    logbtg.hide();
-                    // logbtg.css("display","none");
-                    regesbtg.show();
-                }
-            }
-
-
-            $("#tranLog").click(function () {
-                transfer();
-            });
-
 
 
 
@@ -342,20 +368,17 @@
 
                 try {
 
+
                     $.post( "@Url.Action("Register","Users")", user,
                         function (data, status) {
                             if (data) {
                                 console.log("ok");
                                 pushCookie(user);
-
-
                                 layer.open({ title: "注册成功！", content: "<h4>激活邮箱去吧! </h4><small><hr/> 提醒： 有时候邮箱飞的有些慢，耐心等等看 ！<br/>当然也可能是 激活邮件在你的广告邮箱里面，找找看哦！... </small>" });
-                           
-
-           
- 
-
                                 // window.location.href="index.html";
+                            }
+                            else {
+                                layer.open({ title: "注册失败！", content: "<h4>您的邮箱注册过了! </h4><small><hr/> 提醒： 有时候邮箱注册您忘了，仔细想想？<br/>当然您也可以点击下面的🔑图标找回密码哦！... </small>" });
                             }
                             // alert("数据: \n" + data + "\n状态: " + status);
                             console.log(data);
@@ -382,11 +405,16 @@
                             if (status === "success") {
                                 if (data.ID > 0) {
                                     console.log("ok");
-                                    pushCookie(data);
-                                    layer.msg("进入浪漫土耳其...",{ icon: 1  });
+                                    layer.msg("进入浪漫土耳其...", { icon: 1 });
 
+                                    localforage.setItem('emb_user', data).then(function (value) {
 
-                                    window.location.href = "@Url.Action("Index","Home")";
+                                    window.location.href = "@Url.Action("Index","Home")";  pushCookie(data); });
+
+                                } else if (data.ID == -1) {
+                                    layer.msg("会不会是密码错了❓", { icon: 2 });
+                                } else {
+                                     layer.msg("是不是那里不对❓❓", { icon: 2 });
                                 }
 
                             }

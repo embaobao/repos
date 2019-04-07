@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace CMsListEP.Models
+namespace CTEP.Models
 {
     [Serializable]
     public class MsList : List<MsItem>
