@@ -1,0 +1,76 @@
+﻿@model IEnumerable<CTEP.Models.Community>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.S_Body)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_From_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_To_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIME_CREATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_From_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.S_To_Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_Body)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_From_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_To_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIME_CREATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_STA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_From_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_To_Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

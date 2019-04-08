@@ -45,12 +45,11 @@ namespace CTEP
                      "~/Scripts/jquery.min.js",
                      "~/Scripts/layer.js",
                      "~/Scripts/iconfont.js",
+                      "~/Scripts/localforage.min.js",
                      "~/Scripts/snap.svg-min.js"
                      ));
 
-            bundles.Add(new ScriptBundle("~/js/ui").Include(
-
-                     "~/Scripts/localforage.min.js",
+            bundles.Add(new ScriptBundle("~/js/ui").Include(    
                      "~/Scripts/jquery-ui.min.js",//依赖 JQ
                      "~/Scripts/bootstrap.min.js",//依赖 JQ
                      "~/Scripts/popper.min.js",//依赖 JQ

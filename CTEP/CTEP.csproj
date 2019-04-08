@@ -141,8 +141,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AcademiesController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClassNamesController.cs" />
+    <Compile Include="Controllers\CommunitiesController.cs" />
+    <Compile Include="Controllers\EvalutionFormsController.cs" />
+    <Compile Include="Controllers\EvalutionsController.cs" />
+    <Compile Include="Controllers\GradesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PublicController.cs" />
+    <Compile Include="Controllers\UniversitiesController.cs" />
+    <Compile Include="Controllers\UserBundTablesController.cs" />
     <Compile Include="Controllers\UserHandleController.cs" />
     <Compile Include="Controllers\UserInfoesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -425,6 +434,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Public\" />
     <Folder Include="Views\UserHandle\" />
   </ItemGroup>
   <ItemGroup>
@@ -442,6 +452,46 @@
     <Content Include="Views\UserInfoes\Details.cshtml" />
     <Content Include="Views\UserInfoes\Edit.cshtml" />
     <Content Include="Views\UserInfoes\Index.cshtml" />
+    <Content Include="Views\Universities\Create.cshtml" />
+    <Content Include="Views\Universities\Delete.cshtml" />
+    <Content Include="Views\Universities\Details.cshtml" />
+    <Content Include="Views\Universities\Edit.cshtml" />
+    <Content Include="Views\Universities\Index.cshtml" />
+    <Content Include="Views\Academies\Create.cshtml" />
+    <Content Include="Views\Academies\Delete.cshtml" />
+    <Content Include="Views\Academies\Details.cshtml" />
+    <Content Include="Views\Academies\Edit.cshtml" />
+    <Content Include="Views\Academies\Index.cshtml" />
+    <Content Include="Views\Grades\Create.cshtml" />
+    <Content Include="Views\Grades\Delete.cshtml" />
+    <Content Include="Views\Grades\Details.cshtml" />
+    <Content Include="Views\Grades\Edit.cshtml" />
+    <Content Include="Views\Grades\Index.cshtml" />
+    <Content Include="Views\ClassNames\Create.cshtml" />
+    <Content Include="Views\ClassNames\Delete.cshtml" />
+    <Content Include="Views\ClassNames\Details.cshtml" />
+    <Content Include="Views\ClassNames\Edit.cshtml" />
+    <Content Include="Views\ClassNames\Index.cshtml" />
+    <Content Include="Views\Evalutions\Create.cshtml" />
+    <Content Include="Views\Evalutions\Delete.cshtml" />
+    <Content Include="Views\Evalutions\Details.cshtml" />
+    <Content Include="Views\Evalutions\Edit.cshtml" />
+    <Content Include="Views\Evalutions\Index.cshtml" />
+    <Content Include="Views\EvalutionForms\Create.cshtml" />
+    <Content Include="Views\EvalutionForms\Delete.cshtml" />
+    <Content Include="Views\EvalutionForms\Details.cshtml" />
+    <Content Include="Views\EvalutionForms\Edit.cshtml" />
+    <Content Include="Views\EvalutionForms\Index.cshtml" />
+    <Content Include="Views\Communities\Create.cshtml" />
+    <Content Include="Views\Communities\Delete.cshtml" />
+    <Content Include="Views\Communities\Details.cshtml" />
+    <Content Include="Views\Communities\Edit.cshtml" />
+    <Content Include="Views\Communities\Index.cshtml" />
+    <Content Include="Views\UserBundTables\Create.cshtml" />
+    <Content Include="Views\UserBundTables\Delete.cshtml" />
+    <Content Include="Views\UserBundTables\Details.cshtml" />
+    <Content Include="Views\UserBundTables\Edit.cshtml" />
+    <Content Include="Views\UserBundTables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

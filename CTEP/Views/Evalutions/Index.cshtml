@@ -1,0 +1,106 @@
+﻿@model IEnumerable<CTEP.Models.Evalution>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.S_Desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_CREATE_UID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_EVT_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.I_Course_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIME_CREATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_Score)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_TeachObj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_TeachMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_TeachAbility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_TeachAttitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.F_StudentRelation)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.S_Desc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_CREATE_UID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_EVT_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.I_Course_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TIME_CREATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_Score)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C_STA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_TeachObj)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_TeachMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_TeachAbility)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_TeachAttitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.F_StudentRelation)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

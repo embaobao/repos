@@ -1,0 +1,89 @@
+﻿@model CTEP.Models.Community
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Community</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_From_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_From_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_To_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_To_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_CREATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_CREATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_STA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_From_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_From_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_To_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_To_Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

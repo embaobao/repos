@@ -1,91 +1,82 @@
-﻿<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-    <legend>卡片面板</legend>
+﻿
+
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>我的信息</legend>
 </fieldset>
 
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6">
             <div class="layui-card">
-                <div class="layui-card-header">个人信息</div>
+                <div class="layui-card-header">个人信息与设置</div>
                 <div class="layui-card-body">
 
 
 
 
-                    <form class="layui-form" action="">
+                    <form class="layui-form" lay-filter="userInfoForm" action="">
                         <div class="layui-form-item">
                             <label class="layui-form-label ">名字</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" required lay-verify="required" placeholder="请输入您的昵称" autocomplete="off" class="layui-input layui-form-pane">
+                                <input type="text" name="S_Name" required lay-verify="required" placeholder="请输入您的昵称" autocomplete="on" class="layui-input layui-form-pane">
                             </div>
                         </div>
 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label ">地址</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="S_Address" required lay-verify="required" placeholder="请输入您的地址" autocomplete="off" class="layui-input layui-form-pane">
+                            </div>
+                        </div>
 
-                        <div class="layui-form-item">
-                            <label class="layui-form-label ">邮箱</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" required lay-verify="required" placeholder="请输入您的昵称" autocomplete="off" class="layui-input layui-form-pane">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">密码:</label>
-                            <div class="layui-input-block">
-                                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                                <span class="layui-form-mid layui-word-aux">提示</span>
-                            </div>
-
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">选择框</label>
-                            <div class="layui-input-block">
-                                <select name="city" lay-verify="required">
-                                    <option value=""></option>
-                                    <option value="0">北京</option>
-                                    <option value="1">上海</option>
-                                    <option value="2">广州</option>
-                                    <option value="3">深圳</option>
-                                    <option value="4">杭州</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">设置</label>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="like[write]" title="显示每日一句"><span class="layui-form-mid layui-word-aux">提示</span>
-                            </div>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="like[read]" title="显示首页提示" checked><span class="layui-form-mid layui-word-aux">提示</span>
-                            </div>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="like[dai]" title="评论推送"><span class="layui-form-mid layui-word-aux">提示</span>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">身份</label>
-                            <div class="layui-input-block">
-
-                                <input type="checkbox" name="zzz" lay-skin="switch" lay-text="公开|私密">
-                            </div>
-                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">性别</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="sex" value="男" title="男">
-                                <input type="radio" name="sex" value="女" title="女" checked>
+                                <input type="radio" name="Gender" value="0" title="男" checked>
+                                <input type="radio" name="Gender" value="1" title="女">
                             </div>
                         </div>
+
+
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">描述</label>
                             <div class="layui-input-block">
-                                <textarea name="desc" placeholder="请介绍下自己吧" class="layui-textarea"></textarea>
+                                <textarea name="S_Desc" placeholder="请介绍下自己吧" class="layui-textarea"></textarea>
                             </div>
                         </div>
+
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">主页</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="S_Set0" title="显示每日一句">
+                            </div>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="S_Set1" title="显示首页提示" checked>
+                            </div>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="S_Set2" title="评论推送">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">信息</label>
+                            <div class="layui-input-block">
+
+                                <input type="checkbox" name="C_STA" lay-skin="switch" lay-text="公开|私密">
+                            </div>
+                        </div>
+
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button class="layui-btn" lay-submit lay-filter="userInfo">保存</button>
                                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                             </div>
                         </div>
+
+
                     </form>
 
 
@@ -100,24 +91,91 @@
         </div>
         <div class="layui-col-md6">
             <div class="layui-card">
-                <div class="layui-card-header">卡片面板</div>
+                <div class="layui-card-header">绑定</div>
                 <div class="layui-card-body">
 
 
 
-                    <form class="layui-form" action="">
+                    <form class="layui-form" lay-filter="userBundForm" action="">
+
+
+
+
+
                         <div class="layui-form-item">
-                            <label class="layui-form-label">名字</label>
+                            <label class="layui-form-label">学校</label>
                             <div class="layui-input-block">
-                                <select name="city" lay-verify="" lay-search>
-                                    <option value="" selected>请选择一个城市</option>
-                                    <option value="010">北京</option>
-                                    <option value="021">上海</option>
-                                    <option value="0571">杭州</option>
+                                <select id="bundSchool" name="BundSchool" lay-verify="" lay-filter="BundSchool" lay-search>
+                                    <option value="">请选择一个学校</option>
                                 </select>
 
                             </div>
                         </div>
+
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">院系</label>
+                            <div class="layui-input-block">
+                                <select id="bundAcademy" name="BundAcademy" lay-verify="" lay-filter="BundAcademy" lay-search>
+                                    <option value="" selected>请选择一个院系</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">
+                                年级
+                            </label>
+                            <div class="layui-input-block">
+                                <select id="bundGrad" name="BundGrad" lay-filter="BundGrad" lay-verify="" lay-search>
+                                    <option value="" selected>请选择一个年级</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">
+                                班级
+                            </label>
+                            <div class="layui-input-block">
+                                <select id="bundClass" name="BundClass" lay-filter="BundClass" lay-verify="" lay-search>
+                                    <option value="" selected>请选择一个班级</option>
+
+                                </select>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="userSet">保存</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+
+
+
+
+
+
                     </form>
 
 
@@ -133,7 +191,7 @@
 
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-header">标题</div>
+                <div class="layui-card-header">绑定信息</div>
                 <div class="layui-card-body">
 
 
@@ -163,47 +221,73 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
+
+
     $(document).ready(function () {
+
+
+            String.prototype.format = function () {
+                if (arguments.length == 0) return this;
+                var param = arguments[0];
+                var s = this;
+                if (typeof (param) == 'object') {
+                    for (var key in param)
+                        s = s.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+                    return s;
+                } else {
+                    for (var i = 0; i < arguments.length; i++)
+                        s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+                    return s;
+                }
+            }
+
 
 
 
 
         var userInfo = {
-            I_UID :-1,
-            S_Desc:'' ,
-            S_Name:'',
-            S_Address:'',
-            S_EV_BD:'',
-            S_Set:'',
-            TIME_CRATE,
-            TIME_Used,
-            TIME_LastUsed,
-            C_STA:'',
-            Gender:0,
+            I_UID: -1,
+            S_Desc: '我还很懒，啥也没写',
+            S_Name: '',
+            S_Address: "未知",
+            S_EV_BD: '',
+            S_Set: '["on", "on", "on"]',
+            TIME_CRATE: new Date(),
+            TIME_Used: new Date(),
+            TIME_LastUsed: new Date(),
+            C_STA: 1,
+            Gender: 0,
             Icon: {}
         };
-        localforage.getItem('emb_info').then(function (value) {
+
+
+
+
+
+        localforage.getItem('emb_info').then(function (value){
             // 当离线仓库中的值被载入时，此处代码运行
+            if (value != null) {
+                userInfo = value;
+                if (userInfo.C_STA != "0") {
+                userInfo.C_STA = "on";
+                }
 
-            userInfo = value;
-            console.log('emb_info↓');
-            console.log(userInfo);
-            $("#user_name").text(userInfo.S_Name);
-        }).catch(function (err) { console.log(err); });
+                if (userInfo.S_Set == null) {
+                    userInfo.S_Set = ["on", "on", "on"];
+                } else {
+                    userInfo.S_Set = JSON.parse(userInfo.S_Set);
+                }
+
+
+
+                console.log('离线仓库中emb_info↓');
+                console.log(userInfo);
+                $("#user_name").text(userInfo.S_Name);
+            }
+            else {
+                $("#user_name").text("请登录")
+            }
 
 
 
@@ -211,19 +295,328 @@
 
 
 
-        //Demo
-        layui.use('form', function () {
-            var form = layui.form;
+               layui.use('form', function () {
+
+                    var form = layui.form;
+
+            //加载学校
+            try {
+
+                   var _option = '<option value="{ID}">{S_Name}</option>'
+                    //$("#academyList").html(select.format({id:-1,name:"请选择"}));
+                $.post(" @Url.Action("School","Public") ", {uName:''},
+                    function (data, status) {
+                        console.log("学校数据", data);
+                        for (var i in data) {
+                            $("#bundSchool").append(_option.format(data[i]));
+                            //console.log(data[i]);
+
+                        }
+
+                          form.render("select");
+                    });
+
+
+            } catch (e) {
+                console.log(e);
+            }
+            finally {
+
+
+        }
+
+
+
+                form.val("userInfoForm", userInfo);
+
+                     try {
+                     for (var i in userInfo.S_Set ){
+                        let set = userInfo.S_Set;
+                         if (set[i] === "on") {
+                        $("input[name='S_Set" + i + "']").attr("checked", "");
+                    } else {
+                        $("input[name='S_Set" + i + "']").removeAttr("checked");
+                    }
+
+                    }
+                } catch (e) {
+
+                    console.log(e);
+                } finally {
+
+                   }
+
+                   //_GetData("emb_bund", function (data) {
+
+
+                   //        var emb_bund = {
+                   //            BundSchool:-1,
+                   //            BundAcademy:-1,
+                   //            BundGrad:-1,
+                   //            BundClass:-1
+                   //    }
+
+                   //    for (var i in data) {
+                   //        let bb = data[i]
+                   //        switch (bb.I_Type) {
+                   //            case 1:
+                   //                emb_bund.BundSchool = bb.I_BD_ID;
+                   //                break;
+                   //             case 2:
+                   //                emb_bund.BundAcademy = bb.I_BD_ID;
+                   //                break;
+                   //             case 3:
+                   //                emb_bund.BundGrad = bb.I_BD_ID;
+                   //                break;
+                   //            case 4:
+                   //                emb_bund.BundClass = bb.I_BD_ID;
+                   //                break;
+                   //            default:
+                   //                 break;
+                   //        }
+
+                   //    }
+
+                       form.val("userBundForm", {} );
+                       try {
+
+                       } catch (e) {
+
+                           console.log(e);
+                       } finally {
+
+                   }
+
+                    form.on('select(BundSchool)', function(data){
+                console.log(data.value); //得到被选中的值
+
+            //加载学院
+            try {
+
+                   var _option = '<option value="{ID}">{S_Name}</option>'
+                    $("#bundAcademy").html(_option.format({ID:-1,S_Name:"请选择学院"}));
+                $.post(" @Url.Action("Academy","Public") ", {uName:'',uId:data.value},
+                    function (data, status) {
+                        console.log("数据", data);
+                        for (var i in data) {
+                            $("#bundAcademy").append(_option.format(data[i]));
+                        }
+
+                          form.render("select");
+                    });
+                   //加载年级
+                 $.post(" @Url.Action("Grad","Public") ", {uName:'',uId:data.value},
+                     function (data, status) {
+                          $("#bundGrad").html(_option.format({ID:-1,S_Name:"请选择年级"}));
+                        console.log("数据", data);
+                        for (var i in data) {
+                            $("#bundGrad").append(_option.format(data[i]));
+                        }
+
+                          form.render("select");
+                    });
+
+
+            } catch (e) {
+                console.log(e);
+            }
+            finally {
+
+
+            }
+
+            });
+
+            form.on('select(BundAcademy)', function (data) {
+                //加载班级
+                var _option = '<option value="{ID}">{S_Name}</option>'
+                  $.post(" @Url.Action("ClassNum","Public") ", {uName:'',uId:data.value},
+                      function (data, status) {
+                         $("#bundClass").html(_option.format({ID:-1,S_Name:"请选择班级"}));
+                        console.log("数据", data);
+                        for (var i in data) {
+                            $("#bundClass").append(_option.format(data[i]));
+                        }
+                          form.render("select");
+                    });
+
+            })
+
+
+
+
+            form.render();
 
             //监听提交
-            form.on('submit(formDemo)', function (data) {
-                layer.msg(JSON.stringify(data.field));
-                return false;
+            form.on('submit(userInfo)', function (data) {
+
+                try {
+                    let info = data.field;
+
+                    if (info.C_STA == "on") {
+                        userInfo.C_STA = 1;
+                    } else {
+                        userInfo.C_STA = 0;
+                    }
+                    userInfo.Gender = info.Gender;
+                    userInfo.S_Address = info.S_Address;
+                    userInfo.S_Name = info.S_Name;
+                    userInfo.S_Desc = info.S_Desc;
+                    userInfo.S_Set[0] = info.S_Set0;
+                    userInfo.S_Set[1] = info.S_Set1;
+                    userInfo.S_Set[2] = info.S_Set2;
+                    if (typeof (userInfo.S_Set) != "string") {
+                        userInfo.S_Set = JSON.stringify(userInfo.S_Set);
+                    }
+                     SaveInfo(userInfo, function () {
+                                console.log("离线数据",userInfo);
+                            });
+                    //console.log(userInfo);
+
+                     $.post( " @Url.Action("Updata","UserInfoes") ", userInfo,
+                        function (data, status) {
+                            if (data) {
+                                layer.msg("保存好了哦！");
+                            } console.log("回传数据", data);
+                      });
+
+                }
+                catch (err) {
+                    console.log(err);
+                }
+                finally {
+
+                    //layer.msg(JSON.stringify(userInfo));
+
+                    return false;
+                }
+
+
             });
+
+            //监听提交
+            form.on('submit(userSet)', function (data) {
+
+
+
+
+                let bunds = data.field;
+
+                bundList = [{
+                    I_UID: userInfo.I_UID,
+                    I_Type: 1,
+                    I_BD_ID: bunds.BundSchool,
+                },
+                    {
+                    I_UID: userInfo.I_UID,
+                    I_Type: 2,
+                    I_BD_ID: bunds.BundAcademy,
+                    },
+                    {
+                    I_UID: userInfo.I_UID,
+                    I_Type: 3,
+                    I_BD_ID: bunds.BundGrad,
+                    },
+                    {
+                    I_UID: userInfo.I_UID,
+                    I_Type: 4,
+                    I_BD_ID: bunds.BundClass,
+                },
+                ]
+
+                _SaveData("emb_band", bundList, function () { });
+
+
+                try {
+
+
+                    $.post("@Url.Action("AddBund","UserBundTables") ", { bs:JSON.stringify(bundList)},
+                        function (data, status) {
+
+                                layer.msg("保存好了哦！");
+                             console.log("回传数据", data);
+                      });
+
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    console.log(bundList);
+                    return false;
+                }
+
+
+                //layer.msg(JSON.stringify(data.field));
+
+
+
+
+
+            });
+
+
+
+
+
+
+
+
+
+                   });
+
+
+
+
+
+
+
+
+
+
+
+
+
         });
 
 
-    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </script>

@@ -1,0 +1,83 @@
+﻿@model CTEP.Models.Community
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Community</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_From_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_From_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_To_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_To_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_CREATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_CREATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_STA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_From_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_From_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.S_To_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_To_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

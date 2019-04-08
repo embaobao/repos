@@ -2,42 +2,80 @@
 @{
     ViewBag.Title = "Evalution";
 }
+<table class="layui-hide" id="Evalution" lay-filter="Evalution"></table>
 
-
-
-<table class="layui-hide" id="EvalutionList"></table>
-
-
-
-
-<script>
-    
-   
-
-    layui.use('table', function () {
-        var table = layui.table;
-
-        table.render({
-            elem: '#EvalutionList'
-            , url: '../users/test'
-            , parseData: function (res) { //res 即为原始返回的数据
-                return {
-                    "code": res.StatusNum, //解析接口状态
-                    "msg": res.title, //解析提示文本
-                    "count": res.lenth, //解析数据长度
-                    "data": JSON.parse(res.body)//解析数据列表
-                };
-            }, skin: 'line' //行边框风格
-            //, even: true //开启隔行背景
-            //, size: 'sm' //小尺寸的表格
-            , cols: [[
-                { field: 'ID', width: 80, title: 'ID', sort: true }
-                , { field: 'MAIL', width: 180 ,title: '邮箱'}
-                , { field: 'PW',  title: '密码', minWidth: 150  }
-                , { field: 'C_ROLE', width: 80, title: '角色', sort: true }
-                , { field: 'C_STA', title: '激活状态',width: 80}
-            ]]
-        });
-    });
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
+<script>
+
+    $.ajax({
+        url: "../EvalutionForms/Forms/",
+        type: "get",
+        success: function (result) {
+            console.log(result);
+            layui.use('table', function () {
+                var table = layui.table;
+
+
+                //展示已知数据
+                table.render({
+                    elem: '#Evalution'
+                    , cols: [[ //标题栏
+                        { field: 'ID', title: 'ID', width: 80, sort: true }
+                        , { field: 'S_Name', title: '用户名', width: 120 }
+                        , { field: 'S_CREATE_UName', title: 'UName', minWidth: 150 }
+                        , { field: 'S_Desc', title: '签名', minWidth: 160 }
+                        , { field: 'I_Type', title: 'Type', width: 80 }
+                        , { field: 'I_Week', title: 'Week', width: 100 }
+                        , { field: 'F_Score', title: '分', width: 80, sort: true }
+                        , { fixed: 'right', width: 178, align: 'center', toolbar: '#bar' }
+                    ]]
+                    , data: result,
+                    //,skin: 'line' //表格风格
+                    even: true
+                    //,page: true //是否显示分页
+                    //,limits: [5, 7, 10]
+                    //,limit: 5 //每页默认显示的数量
+                });
+
+
+                ////监听行单击事件（单击事件为：rowDouble）
+                //table.on('row(Evalution)', function (obj) {
+                //    var data = obj.data;
+
+                //    layer.alert(JSON.stringify(data), {
+                //        title: '当前行数据：'
+                //    });
+
+                //    //标注选中样式
+                //    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+                //});
+                table.on('tool(Evalution)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                     var data = obj.data;
+                   
+                    if (obj.event === 'detail') {
+                        layer.msg('ID：' + data.ID + ' 的查看操作');
+                    } else if (obj.event === 'del') {
+                        layer.confirm('真的删除行么', function (index) {
+                            obj.del();
+                            layer.close(index);
+                        });
+                    } else if (obj.event === 'edit') {
+                        layer.alert('编辑行：<br>' + JSON.stringify(data))
+                    }
+                });
+
+
+
+            });
+
+
+        }
+    });
+
+
+</script>

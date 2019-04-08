@@ -10,9 +10,70 @@ using CTEP.Models;
 
 namespace CTEP.Controllers
 {
-    public class UserInfoesController : Controller
+    public class UserInfoesController : BaseController
     {
-        private CTEMPEntities db = new CTEMPEntities();
+
+
+
+        // POST: UserInfoes/Edit/5
+        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
+        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
+        [HttpPost]
+        public ActionResult Updata([Bind(Include = "I_UID,S_Desc,S_Name,S_Address,S_EV_BD,S_Set,TIME_CRATE,TIME_Used,TIME_LastUsed,C_STA,Gender,Icon")] UserInfo userInfo)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (GetInfoesIDByID(userInfo.I_UID) > 0)
+                    {
+                        ChangeData<UserInfo>(userInfo);
+                    }
+                    else
+                    {
+                        AddData<UserInfo>(userInfo);
+                    }
+
+                    return Json(true);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return Json(false);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: UserInfoes
         public ActionResult Index()
@@ -77,7 +138,6 @@ namespace CTEP.Controllers
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "I_UID,S_Desc,S_Name,S_Address,S_EV_BD,S_Set,TIME_CRATE,TIME_Used,TIME_LastUsed,C_STA,Gender,Icon")] UserInfo userInfo)
         {
             if (ModelState.IsValid)
@@ -88,6 +148,12 @@ namespace CTEP.Controllers
             }
             return View(userInfo);
         }
+
+
+
+
+
+
 
         // GET: UserInfoes/Delete/5
         public ActionResult Delete(int? id)

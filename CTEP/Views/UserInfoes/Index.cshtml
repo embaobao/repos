@@ -2,8 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Index</h2>
 
 <p>
@@ -47,47 +47,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.S_Desc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.S_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.S_Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.S_EV_BD)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.S_Set)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIME_CRATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIME_Used)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TIME_LastUsed)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.C_STA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Icon)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.I_UID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.I_UID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.I_UID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_EV_BD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.S_Set)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIME_CRATE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIME_Used)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIME_LastUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.C_STA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icon)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.I_UID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.I_UID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.I_UID })
+            </td>
+        </tr>
+    }
 
 </table>

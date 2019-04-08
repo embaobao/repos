@@ -8,6 +8,7 @@ using CTEP.Models;
 using System.Data.Entity;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
+using System.Linq.Expressions;
 
 namespace CTEP.Controllers
 {
@@ -59,7 +60,7 @@ namespace CTEP.Controllers
             }
             catch (Exception)
             {
-
+                throw;
                 return false;
             }
 
@@ -71,7 +72,7 @@ namespace CTEP.Controllers
 
             try
             {
-               
+
                 if (ModelState.IsValid)
                 {
                     db.Entry(val).State = EntityState.Modified;
@@ -83,7 +84,7 @@ namespace CTEP.Controllers
             {
                 throw;
                 return false;
-                
+
             }
 
             return true;
@@ -94,7 +95,8 @@ namespace CTEP.Controllers
         /// </summary>
         /// <param name="mail">mail</param>
         /// <returns>返回邮箱账户对应ID</returns>
-        public int HasMail(string mail) {
+        public int HasMail(string mail)
+        {
             try
             {
                 return db.Users.Where(x => x.MAIL == mail).AsNoTracking().FirstOrDefault().ID;
@@ -103,7 +105,7 @@ namespace CTEP.Controllers
             {
                 return -1;
             }
-            
+
         }
 
         public bool DeletedData<T>(T val)
@@ -120,7 +122,6 @@ namespace CTEP.Controllers
             }
             catch (Exception)
             {
-
                 return false;
             }
 
@@ -150,9 +151,9 @@ namespace CTEP.Controllers
 
 
 
-        public T SetObject<T,V>  (T oObj,string key ,V val) where T:new()
+        public T SetObject<T, V>(T oObj, string key, V val) where T : new()
         {
-            object obj =null;
+            object obj = null;
             try
             {
                 Type t = typeof(T);
@@ -169,24 +170,61 @@ namespace CTEP.Controllers
                 //取得属性 
                 PropertyInfo pi = t.GetProperty(key);
 
-                
-               //给属性赋值 
-               pi.SetValue(obj, val, null);
+
+                //给属性赋值 
+                pi.SetValue(obj, val, null);
                 ////取得show方法 
                 //MethodInfo mi = t.GetMethod("show");
                 ////调用show方法 
                 //mi.Invoke(obj, null);
 
-               
-                
+
+
             }
             catch (Exception)
             {
-                 return oObj;
+                return oObj;
             }
             return (T)obj;
         }
 
+
+
+        public int GetInfoesIDByID(int ? id) 
+        {
+            try
+            {
+
+                return db.UserInfoes.AsNoTracking().Where(x=>x.I_UID==id).FirstOrDefault().I_UID;
+            }
+            catch (Exception)
+            {
+
+                return -1;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Json 反序列化成对象
+        /// </summary>
+        /// <typeparam name="T">转化的类型</typeparam>
+        /// <param name="JsonString">Json 的 序列化对象</param>
+        /// <returns>反序列化成的对象</returns>
+        public T ToObject<T>(string JsonString)
+        {
+            T data = default;
+            try
+            {
+                data = JsonConvert.DeserializeObject<T>(JsonString);
+            }
+            catch (Exception)
+            {
+                return data;
+            }
+            return data;
+        }
 
     }
 }

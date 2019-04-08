@@ -15,12 +15,14 @@ namespace CTEP.Controllers
 
 
 
+
+
+
+
         [HttpGet]
         public ActionResult TEST(int ? page,int ? limit)
         {
-
             return Json(new MsItem(db.Users.ToList()) { } ,JsonRequestBehavior.AllowGet);
-
         }
         public ActionResult IsMail(string MAIL)
         {
