@@ -26,7 +26,6 @@ namespace CTEP.Controllers
         }
         public ActionResult IsMail(string MAIL)
         {
-
             return HasMail(MAIL) > 0 ? Json(true) : Json(false);
 
         }

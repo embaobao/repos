@@ -1,0 +1,107 @@
+﻿@model CTEP.Models.EvalutionTemp
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EvalutionTemp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.S_Desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.S_Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_CREATE_UID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_CREATE_UID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.I_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.I_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIME_CREATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIME_CREATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_Score)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C_STA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C_STA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_TeachObj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_TeachObj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_TeachMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_TeachMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_TeachAbility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_TeachAbility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_TeachAttitude)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_TeachAttitude)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.F_StudentRelation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.F_StudentRelation)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

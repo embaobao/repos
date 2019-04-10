@@ -8,6 +8,8 @@
 <div style="padding: 20px; background-color: #F2F2F2;">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6">
+
+
             <div class="layui-card">
                 <div class="layui-card-header">个人信息与设置</div>
                 <div class="layui-card-body">
@@ -196,6 +198,7 @@
 
 
 
+                    <table class="layui-hide" id="bdT" lay-filter="bdT"></table>
 
 
 
@@ -218,7 +221,11 @@
 
 
 
-
+<script type="text/html" id="bar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs  " lay-event="detail">添加</a>
+    <a class="btn btn-outline-primary layui-btn-xs rounded-0" lay-event="edit">编辑</a>
+    <a class="btn btn-outline-danger layui-btn-xs rounded-0" lay-event="del">删除</a>
+</script>
 
 
 <script>
@@ -227,25 +234,32 @@
     $(document).ready(function () {
 
 
-            String.prototype.format = function () {
-                if (arguments.length == 0) return this;
-                var param = arguments[0];
-                var s = this;
-                if (typeof (param) == 'object') {
-                    for (var key in param)
-                        s = s.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
-                    return s;
-                } else {
-                    for (var i = 0; i < arguments.length; i++)
-                        s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
-                    return s;
-                }
+        String.prototype.format = function () {
+            if (arguments.length == 0) return this;
+            var param = arguments[0];
+            var s = this;
+            if (typeof (param) == 'object') {
+                for (var key in param)
+                    s = s.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+                return s;
+            } else {
+                for (var i = 0; i < arguments.length; i++)
+                    s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+                return s;
             }
+        }
 
 
+            var date = new Date();
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            var h = date.getHours();
+            var minutes = date.getMinutes();
+            var s = date.getSeconds();
+            var strDate = y+"-"+m+"-"+d+" "+h+":"+minutes+":"+s;
 
-
-
+        //2019-04-10 17:27:20.247
         var userInfo = {
             I_UID: -1,
             S_Desc: '我还很懒，啥也没写',
@@ -253,24 +267,94 @@
             S_Address: "未知",
             S_EV_BD: '',
             S_Set: '["on", "on", "on"]',
-            TIME_CRATE: new Date(),
-            TIME_Used: new Date(),
-            TIME_LastUsed: new Date(),
+            TIME_CRATE: strDate,
+            TIME_Used: strDate,
+            TIME_LastUsed:strDate,
             C_STA: 1,
             Gender: 0,
-            Icon: {}
+            Icon: '',
         };
 
 
 
+        GetUser(function (user) {
+
+            try {
+                GetBund(function (result) {
+
+                     layui.use('table', function () {
+                            var table = layui.table;
+                            //ID, I_UID, I_Type, I_BD_ID
+                            //展示已知数据
+                            table.render({
+                                elem: '#bdT'
+                                ,cols: [[ //标题栏
+                                    { field: 'ID', title: '绑定ID', width: 80, sort: true }
+                                    , { field: 'I_UID', title: '绑定用户码', width: 120 }
+                                    , { field: 'I_Type', title: '类型', minWidth: 120 }
+                                    , { field: 'I_BD_ID', title: '绑定码', minWidth: 200 }
+                                    , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar' }
+                                ]]
+                                ,data: result,
+                                //,skin: 'line' //表格风格ID,I_UID,I_Type,I_BD_ID
+                                even: true,
+                                page: true //是否显示分页
+                                //,limits: [5, 7, 10]
+                                //,limit: 5 //每页默认显示的数量
+                            });
+
+                        });
+                });
+
+            } catch (e) {
+
+                      $.ajax({
+                    url: "../UserBundTables/Bund/",
+                    type: "post",
+                    data: user,
+                    success: function (result) {
+                        _SaveData("emb_bund", result, function () { });
+                        console.log("绑定数据",result);
+                        layui.use('table', function () {
+                            var table = layui.table;
+                            //ID, I_UID, I_Type, I_BD_ID
+                            //展示已知数据
+                            table.render({
+                                elem: '#bdT'
+                                ,cols: [[ //标题栏
+                                    { field: 'ID', title: '绑定ID', width: 80, sort: true }
+                                    , { field: 'I_UID', title: '绑定用户码', width: 120 }
+                                    , { field: 'I_Type', title: '类型', minWidth: 120 }
+                                    , { field: 'I_BD_ID', title: '绑定码', minWidth: 200 }
+                                    , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar' }
+                                ]]
+                                ,data: result,
+                                //,skin: 'line' //表格风格ID,I_UID,I_Type,I_BD_ID
+                                even: true,
+                                page: true //是否显示分页
+                                //,limits: [5, 7, 10]
+                                //,limit: 5 //每页默认显示的数量
+                            });
+
+                        });
+                    },
+                      });
+                console.log(e);
+
+            }
 
 
-        localforage.getItem('emb_info').then(function (value){
+
+
+
+
+
+        localforage.getItem('emb_info').then(function (value) {
             // 当离线仓库中的值被载入时，此处代码运行
             if (value != null) {
                 userInfo = value;
                 if (userInfo.C_STA != "0") {
-                userInfo.C_STA = "on";
+                    userInfo.C_STA = "on";
                 }
 
                 if (userInfo.S_Set == null) {
@@ -291,60 +375,65 @@
 
 
 
+         layui.use('form', function () {
+
+             var form = layui.form;
+             userInfo.I_UID = user.ID;
+
+                    //加载学校
+                    try{ var _option = '<option value="{ID}">{S_Name}</option>'
+
+                        GetSchool(function (data) {
+                            for (var i in data) {
+                                    $("#bundSchool").append(_option.format(data[i]));
+                                    //console.log(data[i]);
+                                }
+                             form.render("select");
+                        })
+
+
+                    } catch (e) {
+                         $.post(" @Url.Action("School","Public") ",
+                            { uName: '' },
+                            function (data, status) {
+                                console.log("学校数据", data);
+                                for (var i in data) {
+                                    $("#bundSchool").append(_option.format(data[i]));
+                                    //console.log(data[i]);
+                                }
+                                form.render("select");
+                            });
+                        console.log(e);
+                    } finally {
+                    }
 
 
 
 
-               layui.use('form', function () {
-
-                    var form = layui.form;
-
-            //加载学校
-            try {
-
-                   var _option = '<option value="{ID}">{S_Name}</option>'
-                    //$("#academyList").html(select.format({id:-1,name:"请选择"}));
-                $.post(" @Url.Action("School","Public") ", {uName:''},
-                    function (data, status) {
-                        console.log("学校数据", data);
-                        for (var i in data) {
-                            $("#bundSchool").append(_option.format(data[i]));
-                            //console.log(data[i]);
-
-                        }
-
-                          form.render("select");
-                    });
-
-
-            } catch (e) {
-                console.log(e);
-            }
-            finally {
-
-
-        }
+              form.val("userInfoForm", userInfo);
 
 
 
-                form.val("userInfoForm", userInfo);
-
-                     try {
+               try {
                      for (var i in userInfo.S_Set ){
-                        let set = userInfo.S_Set;
-                         if (set[i] === "on") {
-                        $("input[name='S_Set" + i + "']").attr("checked", "");
-                    } else {
-                        $("input[name='S_Set" + i + "']").removeAttr("checked");
-                    }
-
-                    }
-                } catch (e) {
-
-                    console.log(e);
-                } finally {
-
+                         let set = userInfo.S_Set;
+                         if (set[i] === "on") { $("input[name='S_Set" + i + "']").attr("checked", ""); }
+                         else {
+                            $("input[name='S_Set" + i + "']").removeAttr("checked");
+                              }
                    }
+
+               } catch (e) {
+                   console.log(e);
+               } finally {
+                   form.render();
+                }
+
+
+
+
+
+
 
                    //_GetData("emb_bund", function (data) {
 
@@ -377,57 +466,42 @@
 
                    //    }
 
-                       form.val("userBundForm", {} );
-                       try {
-
-                       } catch (e) {
-
-                           console.log(e);
-                       } finally {
-
-                   }
-
-                    form.on('select(BundSchool)', function(data){
-                console.log(data.value); //得到被选中的值
-
-            //加载学院
-            try {
-
-                   var _option = '<option value="{ID}">{S_Name}</option>'
-                    $("#bundAcademy").html(_option.format({ID:-1,S_Name:"请选择学院"}));
-                $.post(" @Url.Action("Academy","Public") ", {uName:'',uId:data.value},
-                    function (data, status) {
-                        console.log("数据", data);
-                        for (var i in data) {
-                            $("#bundAcademy").append(_option.format(data[i]));
-                        }
-
-                          form.render("select");
-                    });
-                   //加载年级
-                 $.post(" @Url.Action("Grad","Public") ", {uName:'',uId:data.value},
-                     function (data, status) {
-                          $("#bundGrad").html(_option.format({ID:-1,S_Name:"请选择年级"}));
-                        console.log("数据", data);
-                        for (var i in data) {
-                            $("#bundGrad").append(_option.format(data[i]));
-                        }
-
-                          form.render("select");
-                    });
+               form.val("userBundForm", {} );
 
 
-            } catch (e) {
-                console.log(e);
-            }
-            finally {
+               form.on('select(BundSchool)', function(data){
+                     console.log(data.value); //得到被选中的值
 
+                    //加载学院
+               try {
 
-            }
+                           var _option = '<option value="{ID}">{S_Name}</option>'
+                            $("#bundAcademy").html(_option.format({ID:-1,S_Name:"请选择学院"}));
+                        $.post(" @Url.Action("Academy","Public") ", {uName:'',uId:data.value},
+                            function (data, status) {
+                                console.log("数据", data);
+                                for (var i in data) {
+                                    $("#bundAcademy").append(_option.format(data[i]));
+                                }
 
-            });
+                                  form.render("select");
+                            });
+                           //加载年级
+                         $.post(" @Url.Action("Grad","Public") ",
+                             {uName:'',uId:data.value},
+                             function (data, status) { $("#bundGrad").html(_option.format({ID:-1,S_Name:"请选择年级"}));
+                                console.log("数据", data);
+                                for (var i in data) {
+                                    $("#bundGrad").append(_option.format(data[i]));
+                                }
+                                  form.render("select");
+                            });
+               } catch (e) {
+                        console.log(e);
+               }finally {}
+               });
 
-            form.on('select(BundAcademy)', function (data) {
+               form.on('select(BundAcademy)', function (data) {
                 //加载班级
                 var _option = '<option value="{ID}">{S_Name}</option>'
                   $.post(" @Url.Action("ClassNum","Public") ", {uName:'',uId:data.value},
@@ -443,115 +517,113 @@
             })
 
 
+                //监听提交
+               form.on('submit(userInfo)', function (data) {
 
+                    try {
+                        let info = data.field;
 
-            form.render();
+                        if (info.C_STA == "on") {
+                            userInfo.C_STA = 1;
+                        } else {
+                            userInfo.C_STA = 0;
+                        }
+                        userInfo.Gender = info.Gender;
+                        userInfo.S_Address = info.S_Address;
+                        userInfo.S_Name = info.S_Name;
+                        userInfo.S_Desc = info.S_Desc;
+                        userInfo.S_Set[0] = info.S_Set0;
+                        userInfo.S_Set[1] = info.S_Set1;
+                        userInfo.S_Set[2] = info.S_Set2;
+                        if (typeof (userInfo.S_Set) != "string") {
+                            userInfo.S_Set = JSON.stringify(userInfo.S_Set);
+                        }
+                         SaveInfo(userInfo, function () {
+                                    console.log("离线数据",userInfo);
+                                });
+                        //console.log(userInfo);
+                         console.log("提交数据",userInfo);
+                         $.post( " @Url.Action("Updata","UserInfoes") ", userInfo,
+                            function (data, status) {
+                                if (data) {
+                                    layer.msg("保存好了哦！");
+                                } console.log("回传数据", data);
+                          });
 
-            //监听提交
-            form.on('submit(userInfo)', function (data) {
-
-                try {
-                    let info = data.field;
-
-                    if (info.C_STA == "on") {
-                        userInfo.C_STA = 1;
-                    } else {
-                        userInfo.C_STA = 0;
                     }
-                    userInfo.Gender = info.Gender;
-                    userInfo.S_Address = info.S_Address;
-                    userInfo.S_Name = info.S_Name;
-                    userInfo.S_Desc = info.S_Desc;
-                    userInfo.S_Set[0] = info.S_Set0;
-                    userInfo.S_Set[1] = info.S_Set1;
-                    userInfo.S_Set[2] = info.S_Set2;
-                    if (typeof (userInfo.S_Set) != "string") {
-                        userInfo.S_Set = JSON.stringify(userInfo.S_Set);
+                    catch (err) {
+                        layer.msg("保存失败了！",{ Icon:2 });
+                        console.log(err);
                     }
-                     SaveInfo(userInfo, function () {
-                                console.log("离线数据",userInfo);
-                            });
-                    //console.log(userInfo);
+                    finally {
 
-                     $.post( " @Url.Action("Updata","UserInfoes") ", userInfo,
-                        function (data, status) {
-                            if (data) {
-                                layer.msg("保存好了哦！");
-                            } console.log("回传数据", data);
-                      });
+                        //layer.msg(JSON.stringify(userInfo));
 
-                }
-                catch (err) {
-                    console.log(err);
-                }
-                finally {
-
-                    //layer.msg(JSON.stringify(userInfo));
-
-                    return false;
-                }
+                        return false;
+                    }
 
 
-            });
+                });
 
-            //监听提交
-            form.on('submit(userSet)', function (data) {
+                //监听提交
+               form.on('submit(userSet)', function (data) {
 
 
 
 
-                let bunds = data.field;
+                    let bunds = data.field;
 
-                bundList = [{
-                    I_UID: userInfo.I_UID,
-                    I_Type: 1,
-                    I_BD_ID: bunds.BundSchool,
-                },
-                    {
-                    I_UID: userInfo.I_UID,
-                    I_Type: 2,
-                    I_BD_ID: bunds.BundAcademy,
+                   bundList = [{
+
+                        I_UID: userInfo.I_UID,
+                        I_Type: 1,
+                        I_BD_ID: bunds.BundSchool,
                     },
-                    {
-                    I_UID: userInfo.I_UID,
-                    I_Type: 3,
-                    I_BD_ID: bunds.BundGrad,
+                        {
+                        I_UID: userInfo.I_UID,
+                        I_Type: 2,
+                        I_BD_ID: bunds.BundAcademy,
+                        },
+                        {
+                        I_UID: userInfo.I_UID,
+                        I_Type: 3,
+                        I_BD_ID: bunds.BundGrad,
+                        },
+                        {
+                        I_UID: userInfo.I_UID,
+                        I_Type: 4,
+                        I_BD_ID: bunds.BundClass,
                     },
-                    {
-                    I_UID: userInfo.I_UID,
-                    I_Type: 4,
-                    I_BD_ID: bunds.BundClass,
-                },
-                ]
+                    ]
 
-                _SaveData("emb_band", bundList, function () { });
+                    _SaveData("emb_bund", bundList, function () { });
 
 
-                try {
+                    try {
 
 
-                    $.post("@Url.Action("AddBund","UserBundTables") ", { bs:JSON.stringify(bundList)},
-                        function (data, status) {
+                        $.post("@Url.Action("AddBund","UserBundTables") ", { bs:JSON.stringify(bundList)},
+                            function (data, status) {
 
-                                layer.msg("保存好了哦！");
-                             console.log("回传数据", data);
-                      });
+                                    layer.msg("保存好了哦！");
+                                 console.log("回传数据", data);
+                          });
 
-                } catch (e) {
-                    console.log(e);
-                } finally {
-                    console.log(bundList);
-                    return false;
-                }
+                    } catch (e) {
+                        console.log(e);
+                    } finally {
+                        console.log(bundList);
+                        return false;
+                    }
 
 
-                //layer.msg(JSON.stringify(data.field));
+                    //layer.msg(JSON.stringify(data.field));
 
 
 
 
 
-            });
+                });
 
 
 
@@ -568,20 +640,13 @@
 
 
 
-
-
-
-
-
-
-
         });
 
 
 
 
 
-
+              });
 
 
 

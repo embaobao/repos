@@ -19,10 +19,72 @@ namespace CTEP.Controllers
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-       
+
         public ActionResult AddBund(string bs)
-        { 
-            return Json(ToObject<List<UserBundTable>>(bs));
+        {
+            try
+            {
+                List<UserBundTable> BsList = ToObject<List<UserBundTable>>(bs);
+
+                foreach (UserBundTable i in BsList)
+                {
+
+                    if (i.I_BD_ID >= 0)
+                    {
+
+
+                        if (i.I_Type > 0)
+                        {
+                            int id = HasBundType(i);
+
+
+                            if (id > 0)
+                            {
+                                ChangeData<UserBundTable>(new UserBundTable { ID = id, I_BD_ID = i.I_BD_ID, I_Type = i.I_Type, I_UID = i.I_UID });
+                            }
+                            else
+                            {
+                               AddData<UserBundTable>(new UserBundTable{ ID = id,I_BD_ID = i.I_BD_ID, I_Type = i.I_Type, I_UID = i.I_UID });
+                            }
+                        }
+
+                        else
+                        {
+                            int id = HasBund(i);
+                            if (id > 0)
+                            {
+                                Json(false);
+                            }
+                            else
+                            {
+                                db.UserBundTables.Add(new UserBundTable { ID = id, I_BD_ID = i.I_BD_ID, I_Type = i.I_Type, I_UID = i.I_UID });
+                            }
+
+                        }
+                    }
+
+                }
+              
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Json(true);
+        }
+
+        public ActionResult Bund([Bind(Include = "ID,MAIL,PW,C_ROLE,C_STA")] User user)
+        {
+            if (IsUser(user))
+            {
+                return Json(db.UserBundTables.Where(x => x.I_UID == user.ID).ToList());
+            }
+            else
+            {
+                return Json(false);
+            }
         }
 
 
@@ -39,7 +101,6 @@ namespace CTEP.Controllers
 
 
 
-  
 
         // GET: UserBundTables
         public ActionResult Index()

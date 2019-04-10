@@ -81,6 +81,24 @@ namespace CTEP.Controllers
             return Json(_un.ToList());
         }
 
+        //获取属
+        [HttpGet]
+        public ActionResult Attr()
+        {
+            return Json(db.CourseTemps.ToList(),JsonRequestBehavior.AllowGet);
+        }
 
+        //获取属
+        [HttpGet]
+        public ActionResult schools()
+        {
+            MsList ms = new MsList();
+            ms.Add(new MsItem("2", db.Academies.ToList()));
+            ms.Add(new MsItem("3", db.Grades.ToList()));
+            ms.Add(new MsItem("4", db.ClassNames.ToList()));
+            return Json(ms, JsonRequestBehavior.AllowGet);
+        }
+        
+       
     }
 }

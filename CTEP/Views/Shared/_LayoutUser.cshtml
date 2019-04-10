@@ -14,11 +14,13 @@
     <meta name="author" content="" />
 
     @Styles.Render("~/style/base")
+    @Styles.Render("~/style/layui")
+
     @Styles.Render("~/style/menu")
     @Scripts.Render("~/js/base")
-    @Scripts.Render("~/js/ui")
-    @Styles.Render("~/style/layui")
     @Scripts.Render("~/js/layui")
+    @Scripts.Render("~/js/ui")
+
     @RenderSection("head", false)
     <style>
     @RenderSection("style",false)

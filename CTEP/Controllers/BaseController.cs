@@ -190,12 +190,12 @@ namespace CTEP.Controllers
 
 
 
-        public int GetInfoesIDByID(int ? id) 
+        public int GetInfoesIDByID(int? id)
         {
             try
             {
 
-                return db.UserInfoes.AsNoTracking().Where(x=>x.I_UID==id).FirstOrDefault().I_UID;
+                return db.UserInfoes.AsNoTracking().Where(x => x.I_UID == id).FirstOrDefault().I_UID;
             }
             catch (Exception)
             {
@@ -225,6 +225,150 @@ namespace CTEP.Controllers
             }
             return data;
         }
+
+
+
+
+
+
+
+        /// <summary>
+        /// 验证账户信息
+        /// </summary>
+        /// <param name="user">用户对象</param>
+        /// <returns></returns>
+        public bool IsUser(User user)
+        {
+            int i = HasMail(user.MAIL);
+            if (i > 0)
+            {
+                User u = db.Users.Find(i);
+                if (user.PW == u.PW)
+                {
+                    return true;//返回对象
+                }
+            }
+            return false; //至少一个不对
+        }
+
+
+        public int HasBundType(UserBundTable bund)
+        {
+            try
+            {
+                int count = db.UserBundTables.AsNoTracking().Where(x => x.I_Type == bund.I_Type && x.I_UID == bund.I_UID).Count();
+                if (count > 0)
+                {
+
+
+                    UserBundTable ut = db.UserBundTables.AsNoTracking().Where(x => x.I_Type == bund.I_Type && x.I_UID == bund.I_UID).Take(1).FirstOrDefault();
+
+                    return ut.ID;
+                }
+                else
+                {
+                    return -1;
+
+                }
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public int HasBund(UserBundTable bund)
+        {
+            try
+            {
+                return db.UserBundTables.AsNoTracking().Where(x => x.I_Type == bund.I_Type && x.I_BD_ID == bund.I_BD_ID && x.I_UID == bund.I_UID).FirstOrDefault().ID;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        ///  查询课程模板是否存在
+        /// </summary>
+        /// <param name="id">课程模板id</param>
+        /// <returns>课程模板数量</returns>
+        public int CTNumForId(int? id)
+        {
+            int num = 0;
+
+            try
+            {
+                if (id < 0)
+                {
+                    return num;
+                }
+                num = db.CourseTemps.Where(x => x.ID == id).Count();
+            }
+            catch (Exception)
+            {
+                num = -1;
+            }
+            return num;
+        }
+
+
+
+
+
+        /// <summary>
+        /// 查询评价表是否存在
+        /// </summary>
+        /// <param name="id">评级表ID</param>
+        /// <returns>评价表数量</returns>
+        public int EFormsNumForId(int? id)
+        {
+
+            int num = 0;
+
+
+            try
+            {
+                if (id < 0)
+                {
+                    return num;
+                }
+
+                num = db.EvalutionForms.Where(x => x.ID == id).Count();
+            }
+            catch (Exception)
+            {
+                num = -1;
+            }
+            return num;
+        }
+
+
+
+
+
 
     }
 }

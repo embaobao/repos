@@ -2,80 +2,1120 @@
 @{
     ViewBag.Title = "Evalution";
 }
-<table class="layui-hide" id="Evalution" lay-filter="Evalution"></table>
+
+
+
+
+
+<!--efForm 模态框 -->
+<div id="efForm" class="hidden">
+
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+
+
+
+
+            <form class="layui-form" lay-filter="efForm">
+
+                <input type="number" class="hidden" lay-filter="C_STA" name="C_STA">
+                <input type="number" class="hidden" lay-filter="I_BD_ID" name="I_BD_ID">
+                <input type="number" class="hidden" lay-filter="I_CREATE_UID" name="I_CREATE_UID">
+                <input type="number" class="hidden" lay-filter="I_Course_ID" name="I_Course_ID">
+                <input type="number" class="hidden" lay-filter="I_Type" name="I_Type">
+                <input type="number" class="hidden" lay-filter="Icon" name="Icon">
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">得分</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="F_Score" lay-filter="F_Score" lay-verify="required" placeholder="暂无分数" autocomplete="on" class="layui-input layui-form-pane" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">ID</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="ID" lay-filter="ID" lay-verify="required" placeholder="没有发布的课程没有ID" autocomplete="on" class="layui-input layui-form-pane" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">授课人</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="S_CREATE_UName" lay-filter="S_CREATE_UName" lay-verify="required" placeholder="请输入授课人姓名" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">课程名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="S_Name" lay-filter="S_Name" lay-verify="required" placeholder="请输入课程名称" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea name="S_Desc" lay-filter="S_Desc" placeholder="请介绍下课程吧" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">上课时间</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="I_Week" lay-filter="I_Week" lay-verify="required" placeholder="周几|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">开始时间</label>
+                    <div class="layui-input-block">
+                        <input id="TIME_Star_EV" type="datetime" name="TIME_Star_EV" lay-filter="TIME_Star_EV" lay-verify="required" placeholder="请输入开始时间|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-block">
+                        <input id="TIME_END_EV" type="datetime" name="TIME_END_EV" lay-filter="TIME_END_EV" lay-verify="required" placeholder="请输入结束时间|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button id="efSubBt" class="layui-btn " lay-submit lay-filter="efSub">保存</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<div id="efPublicForm" class="hidden">
+
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+
+
+
+
+            <form class="layui-form" lay-filter="efPublicForm">
+
+                <input type="number" class="hidden" lay-filter="C_STA" name="C_STA">
+                <input type="number" class="hidden" lay-filter="I_CREATE_UID" name="I_CREATE_UID">
+                <input type="number" class="hidden" lay-filter="Icon" name="Icon">
+                <input type="number" class="hidden" lay-filter="ID" name="ID">
+                <input type="number" class="hidden" lay-filter="F_Score" name="F_Score">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        发布范围:
+                    </label>
+                    <div class="layui-input-block">
+                        <select id="bundClass" name="I_Type" lay-filter="I_Type" lay-verify="" lay-search>
+                            <option value="-1" selected>请选择一个范围</option>
+                            <option value="0" selected>全部</option>
+                            <option value="1" selected>学校</option>
+                            <option value="2" selected>院系</option>
+                            <option value="3" selected>年级</option>
+                            <option value="4" selected>仅一个班级</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        范围名称:
+                    </label>
+                    <div class="layui-input-block">
+                        <select id="emb_schools" name="I_BD_ID" lay-filter="I_BD_ID" lay-verify="" lay-search>
+                            <option value="-1" selected>请选择一个名称...</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">属:</label>
+                    <div class="layui-input-block">
+                        <input type="number" id="I_Course_ID" name="I_Course_ID" lay-filter="I_Course_ID" lay-verify="required" placeholder="点击选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">授课人</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="S_CREATE_UName" lay-filter="S_CREATE_UName" lay-verify="required" placeholder="请输入授课人姓名" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">课程名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="S_Name" lay-filter="S_Name" lay-verify="required" placeholder="请输入课程名称" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea name="S_Desc" lay-filter="S_Desc" placeholder="请介绍下课程吧" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label ">星期几？</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="I_Week" lay-filter="I_Week" lay-verify="required" placeholder="周几|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">开始时间</label>
+                    <div class="layui-input-block">
+                        <input id="pTIME_Star_EV" type="datetime" name="TIME_Star_EV" lay-filter="TIME_Star_EV" lay-verify="required" placeholder="请输入开始时间|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">结束时间</label>
+                    <div class="layui-input-block">
+                        <input id="pTIME_END_EV" type="datetime" name="TIME_END_EV" lay-filter="TIME_END_EV" lay-verify="required" placeholder="请输入结束时间|可不选择" autocomplete="on" class="layui-input layui-form-pane">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button id="efPublicSubBt" class="layui-btn " lay-submit lay-filter="efPublicSub">保存</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- evForm -->
+<div id="evForm" class="hidden">
+
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+
+
+            <form class="layui-form" lay-filter="evSubmitForm">
+
+
+
+                @*  ID,S_Desc,I_CREATE_UID,I_EVT_ID,I_Type,I_Course_ID,TIME_CREATE,F_Score,C_STA,F_TeachObj,F_TeachMethod,F_TeachAbility,F_TeachAttitude,F_StudentRelation*@
+
+
+
+
+
+                <input type="number" class="hidden" lay-filter="ID" name="ID">
+                <input type="number" class="hidden" lay-filter="I_CREATE_UID" name="I_CREATE_UID">
+                <input type="number" class="hidden" lay-filter="I_EVT_ID" name="I_EVT_ID">
+                <input type="number" class="hidden" lay-filter="I_Type" name="I_Type">
+                <input type="number" class="hidden" lay-filter="I_Course_ID" name="I_Course_ID">
+                <input type="number" class="hidden" lay-filter="TIME_CREATE" name="TIME_CREATE">
+                <input type="number" class="hidden" lay-filter="C_STA" name="C_STA">
+
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">总分:</label>
+                    <label class="layui-badge" for="F_Score"> 50分</label>
+                    <span name="emoj_F_Score">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_Score" class="custom-range" id="F_Score" name="F_Score">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">能力:</label>
+                    <label class="layui-badge layui-bg-orange" for="F_TeachAbility"> 50分</label>
+                    <span name="emoj_F_TeachAbility">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_TeachAbility" class="custom-range" id="F_TeachAbility" name="F_TeachAbility">
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">方法:</label>
+                    <label class="layui-badge layui-bg-black" for="F_TeachMethod"> 50分</label>
+                    <span name="emoj_F_TeachMethod">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_TeachMethod" class="custom-range" id="F_TeachMethod" name="F_TeachMethod">
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">目标:</label>
+                    <label class="layui-badge layui-bg-cyan" for="F_TeachObj"> 50分</label>
+                    <span name="emoj_F_TeachObj">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_TeachObj" class="custom-range" id="F_TeachObj" name="F_TeachObj">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">态度:</label>
+                    <label class="layui-badge layui-bg-blue" for="F_TeachAttitude"> 50分</label>
+                    <span name="emoj_F_TeachAttitude">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_TeachAttitude" class="custom-range" id="F_TeachAttitude" name="F_TeachAttitude">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="font-size: 1.5rem">关系:</label>
+                    <label class="layui-badge layui-bg-green" for="F_StudentRelation"> 50分</label>
+                    <span name="emoj_F_StudentRelation">
+                        <svg class="icon-lg" aria-hidden="true">
+                            <use xlink:href="#icon-emoji_dakeshui"></use>
+                        </svg>
+                    </span>
+                    <div class="layui-input-block">
+                        <input type="range" lay-filter="F_StudentRelation" class="custom-range" id="F_StudentRelation" name="F_StudentRelation">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">建议</label>
+                    <div class="layui-input-block">
+                        <textarea name="S_Desc" lay-filter="S_Desc" placeholder="给老师点建议吧！" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+
+
+
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="evSub">提交</button>
+
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<table class="layui-hide" id="Evalution" lay-filter="Evalution" lay-data="{height: 'full-200'"></table>
+
+
+
+
+
+
+<input type="text" name="title" placeholder="请输入关键词" autocomplete="off" class="layui-input">
+<script type="text/html" id="toolbar">
+
+    <div class="layui-btn-container">
+        <button id="createTbt" class="layui-btn btn-block layui-btn-primary layui-btn-sm" lay-event="add">创建评价表</button>
+        @*<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+            <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>*@
+        @*<button class="layui-btn layui-btn-sm" lay-event="Brush">刷新</button>*@
+
+    </div>
+</script>
+
 
 <script type="text/html" id="bar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">详情</a>
+    <a class="btn btn-outline-primary rounded-0 layui-btn-xs" lay-event="edit">评价</a>
+    <a class="btn btn-outline-danger  rounded-0 layui-btn-xs" lay-event="del">隐藏</a>
 </script>
+
 
 <script>
 
-    $.ajax({
-        url: "../EvalutionForms/Forms/",
-        type: "get",
-        success: function (result) {
-            console.log(result);
-            layui.use('table', function () {
-                var table = layui.table;
+    var _shuPanl = '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">选一个课程属！<br>选择属可以和多个老师交流教学心得！<br> {0}^_^</div>'
+    var _shuBt = '<button name="{ID}" class="layui-btn  layui-btn-sm emb-shu" lay-event="">{S_Name}</button>';
+    String.prototype.format = function () {
+        if (arguments.length == 0) return this;
+        var param = arguments[0];
+        var s = this;
+        if (typeof (param) == 'object') {
+            for (var key in param)
+                s = s.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+            return s;
+        } else {
+            for (var i = 0; i < arguments.length; i++)
+                s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+            return s;
+        }
+    }
 
 
-                //展示已知数据
-                table.render({
-                    elem: '#Evalution'
-                    , cols: [[ //标题栏
-                        { field: 'ID', title: 'ID', width: 80, sort: true }
-                        , { field: 'S_Name', title: '用户名', width: 120 }
-                        , { field: 'S_CREATE_UName', title: 'UName', minWidth: 150 }
-                        , { field: 'S_Desc', title: '签名', minWidth: 160 }
-                        , { field: 'I_Type', title: 'Type', width: 80 }
-                        , { field: 'I_Week', title: 'Week', width: 100 }
-                        , { field: 'F_Score', title: '分', width: 80, sort: true }
-                        , { fixed: 'right', width: 178, align: 'center', toolbar: '#bar' }
-                    ]]
-                    , data: result,
-                    //,skin: 'line' //表格风格
-                    even: true
-                    //,page: true //是否显示分页
-                    //,limits: [5, 7, 10]
-                    //,limit: 5 //每页默认显示的数量
-                });
+    function noticeTip(panel) {
+        //示范一个公告层
+        return index = layer.open({
+            type: 1
+            , title: false //不显示标题栏
+            , closeBtn: false
+            , area: '300px;'
+            , shade: 0.8
+            , id: 'LAY_layuipro' //设定一个id，防止重复弹出
+            , btn: ['自己就是', '不选了']
+            , btnAlign: 'c'
+            , moveType: 1 //拖拽模式，0或者1
+            , content: panel
+            , success: function (layero) {
+                $("#I_Course_ID").val(0);
+            }
+        });
+    }
+    var shuPaneIndex = -1;
+    $("#I_Course_ID").focus(function () {
+        var btlist = "";
 
+        GetCourseTemp(function (data) {
 
-                ////监听行单击事件（单击事件为：rowDouble）
-                //table.on('row(Evalution)', function (obj) {
-                //    var data = obj.data;
+            for (let i in data) {
+                let temp = data[i]
+                btlist += _shuBt.format(temp)
+            }
+            shuPaneIndex = noticeTip(_shuPanl.format(btlist));
 
-                //    layer.alert(JSON.stringify(data), {
-                //        title: '当前行数据：'
-                //    });
-
-                //    //标注选中样式
-                //    obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
-                //});
-                table.on('tool(Evalution)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-                     var data = obj.data;
-                   
-                    if (obj.event === 'detail') {
-                        layer.msg('ID：' + data.ID + ' 的查看操作');
-                    } else if (obj.event === 'del') {
-                        layer.confirm('真的删除行么', function (index) {
-                            obj.del();
-                            layer.close(index);
-                        });
-                    } else if (obj.event === 'edit') {
-                        layer.alert('编辑行：<br>' + JSON.stringify(data))
-                    }
-                });
-
-
-
+            $(".emb-shu").on("click", function () {
+                $("#I_Course_ID").val($(this).attr("name"));
+                layer.close(shuPaneIndex);
             });
 
+        });
 
-        }
+
+
     });
 
 
+
+
+    function Imgs(imgName) {
+        let svg =
+            '<svg class="icon-lg " aria-hidden="true"> <use xlink:href="#icon-emoji_{0}"></use</svg>';
+        return svg.format(imgName);
+    }
+
+
+
+
+    function evBarResponse(id) {
+        var img_id = "span[name='emoj_" + id + "']";
+        var img = $(img_id);
+        var ran = $("#" + id);
+        ran.bind("input propertychange", function (event) {
+            // console.log();
+            $('label[for=' + id + ']').text(ran.val() + "分");
+            // console.log($("#customRange").val());
+            let score = ran.val();
+            if (score < 20) {
+                img.html(Imgs("ku"));
+                layer.tips('我可要哭给你看了昂！', img_id);
+            } else if (score >= 20 && score < 30) {
+                img.html(Imgs("suan"));
+                layer.tips('我是不是做的不够好？', img_id);
+            } else if (score >= 30 && score < 40) {
+                img.html(Imgs("bugaoxing"));
+                layer.tips('我记着你了！', img_id);
+            } else if (score >= 40 && score < 50) {
+                img.html(Imgs("lengmo"));
+                layer.tips('无所谓~', img_id);
+            } else if (score >= 50 && score < 60) {
+                img.html(Imgs("burenzhishi"));
+                layer.tips('看不到，看不到...分数~', img_id);
+            } else if (score >= 60 && score < 70) {
+                img.html(Imgs("tushetou"));
+                layer.tips('万水千山总是情，多给一分行不行~', img_id);
+            } else if (score >= 70 && score < 80) {
+                img.html(Imgs("weixiao"));
+                layer.tips('嗯~，有前途', img_id);
+            } else if (score >= 80 && score < 90) {
+                img.html(Imgs("zhayan"));
+                layer.tips('我还可以吧？', img_id);
+            } else if (score >= 90 && score < 100) {
+                img.html(Imgs("deyi"));
+                layer.tips('学到了，才是王道！', img_id);
+            } else if (score = 100) {
+                img.html(Imgs("se"));
+                layer.tips('好，就是这里，别动了！', img_id);
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+    function _ef(db) {
+
+        this.ID = db.ID;
+        this.I_BD_ID = db.I_BD_ID;
+        this.I_CREATE_UID = db.I_CREATE_UID;
+        this.I_Course_ID = db.I_Course_ID;
+        this.I_Type = db.I_Type;
+        this.I_Week = db.I_Week;
+        this.C_STA = db.C_STA;
+        this.F_Score = db.F_Score;
+        this.Icon = db.Icon;
+        this.S_Desc = db.S_Desc;
+        this.S_Name = db.S_Name;
+        this.S_CREATE_UName = db.S_CREATE_UName;
+        this.TIME_END_EV = db.TIME_END_EV;
+        this.TIME_Star_EV = db.TIME_Star_EV;
+
+        return {
+            ID: this.ID,
+            I_BD_ID: this.I_BD_ID,
+            I_CREATE_UID: this.I_CREATE_UID,
+            I_Course_ID: this.I_Course_ID,
+            I_Type: this.I_Type,
+            I_Week: this.I_Week,
+            Icon: this.Icon,
+            S_CREATE_UName: this.S_CREATE_UName,
+            S_Desc: this.S_Desc,
+            S_Name: this.S_Name,
+            TIME_END_EV: this.TIME_END_EV,
+            TIME_Star_EV: this.TIME_Star_EV,
+            C_STA: this.C_STA,
+            F_Score: this.F_Score,
+        }
+
+    }
+
+    function _ev(CREATE_ID, I_EVT_ID, I_Course_ID) {
+        this.ID = -1;
+        this.S_Desc = '';
+        this.I_CREATE_UID = -1;
+        this.I_EVT_ID = -1;
+        this.I_Type = 0;
+        this.I_Course_ID = -1;
+        this.TIME_CREATE = new Date();
+        this.F_Score = 50;
+        this.C_STA = 0;
+        this.F_TeachObj = 50;
+        this.F_TeachMethod = 50;
+        this.F_TeachAbility = 50;
+        this.F_TeachAttitude = 50;
+        this.F_StudentRelation = 50;
+
+        if (CREATE_ID > 0) {
+            this.I_CREATE_UID = CREATE_ID;
+        }
+        if (I_EVT_ID > 0) {
+            this.I_EVT_ID = I_EVT_ID;
+        }
+        if (I_Course_ID > 0) {
+            this.I_Course_ID = I_Course_ID;
+        }
+        return {
+            C_STA: this.C_STA,
+            F_Score: this.F_Score,
+            F_StudentRelation: this.F_StudentRelation,
+            F_TeachAbility: this.F_TeachAbility,
+            F_TeachAttitude: this.F_TeachAttitude,
+            F_TeachMethod: this.F_TeachMethod,
+            F_TeachObj: this.F_TeachObj,
+            ID: this.ID,
+            I_CREATE_UID: this.I_CREATE_UID,
+            I_Course_ID: this.I_Course_ID,
+            I_EVT_ID: this.I_EVT_ID,
+            I_Type: this.I_Type,
+            S_Desc: this.S_Desc,
+            TIME_CREATE: this.TIME_CREATE,
+        }
+    }
+
+
+
+    var evBarRlist = ["F_Score", "F_TeachObj", "F_TeachMethod", "F_TeachAbility", "F_TeachAttitude", "F_StudentRelation"];
+
+    for (var i in evBarRlist) {
+        evBarResponse(evBarRlist[i]);
+    }
+    function evBarBrush() {
+        for (var i in evBarRlist) {
+
+            let id = evBarRlist[i];
+            var ran = $("#" + id);
+            var img_id = "span[name='emoj_" + id + "']";
+            var img = $(img_id);
+            $('label[for=' + id + ']').text(ran.val() + "分");
+            img.html(Imgs("kaixin"));
+        }
+    }
+
+    layui.use('form', function () {
+
+        var form = layui.form;
+
+        form.on('select(I_Type)', function (data) {
+            console.log("选择范围", data.value); //得到被选中的值
+
+
+
+            switch (data.value) {
+                case "1":
+                    var _option = '<option value="{ID}">{S_Name}</option>'
+                    $("#emb_schools").html(_option.format({ ID: -1, S_Name: "请选择" }));
+                    GetSchool(function (school) {
+                        for (var i in school) {
+
+                            $("#emb_schools").append(_option.format(school[i])); form.render();
+
+                        }
+                    });
+
+
+                    break;
+                case "2":
+                    GetSchools(function (schools) {
+                        var _option = '<option value="{ID}">{S_Name}</option>'
+                        $("#emb_schools").html(_option.format({ ID: -1, S_Name: "请选择" }));
+                        var academys = JSON.parse(schools[0].body)
+                        for (var i in academys) {
+
+                            $("#emb_schools").append(_option.format(academys[i]));
+                            form.render();
+                        }
+
+                    });
+
+                    break;
+                case "3":
+
+                    GetSchools(function (schools) {
+                        var _option = '<option value="{ID}">{S_Name}</option>'
+                        $("#emb_schools").html(_option.format({ ID: -1, S_Name: "请选择" }));
+                        var academys = JSON.parse(schools[1].body)
+                        for (var i in academys) {
+
+                            $("#emb_schools").append(_option.format(academys[i])); form.render();
+                        }
+
+                    });
+
+
+                    break;
+                case "4":
+                    GetSchools(function (schools) {
+
+                        var _option = '<option value="{ID}">{S_Name}</option>'
+                        $("#emb_schools").html(_option.format({ ID: -1, S_Name: "请选择" }));
+                        var academys = JSON.parse(schools[2].body)
+                        for (var i in academys) {
+
+                            $("#emb_schools").append(_option.format(academys[i])); form.render();
+                        }
+
+                    });
+
+                    break;
+
+            }
+
+        });
+
+    });
+    function BrushEFTable() {
+
+        GetUser(function (user) {
+
+
+            $.ajax({
+                url: "../EvalutionForms/EvaluForm/",
+                type: "post",
+                data: user,
+                success: function (result) {
+                    console.log(result);
+                    layui.use('table', function () {
+                        var table = layui.table;
+
+                        //展示已知数据
+                        table.render({
+                            elem: '#Evalution',
+                            toolbar: '#toolbar'
+                            , title: '用户数据表'
+                            , cols: [[ //标题栏
+                                { type: 'checkbox', fixed: 'left' }
+                                , { field: 'ID', title: '课程ID', width: 80, sort: true, fixed: 'left' }
+                                , { field: 'S_Name', title: '课程名', width: 120 }
+                                , { field: 'S_CREATE_UName', title: '教师名', minWidth: 120 }
+                                , { field: 'S_Desc', title: '课程描述', minWidth: 200 }
+                                , { field: 'I_Type', title: '课程状态', width: 80 }
+                                , { field: 'I_Week', title: '星期(周)', width: 80 }
+                                , { field: 'F_Score', title: '得分', width: 80, sort: true }
+                                , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar', fixed: 'right' }
+                            ]]
+                            , data: result,
+                            //,skin: 'line' //表格风格
+                            even: true,
+                            page: true,
+                            size: 'lg',//是否显示分页
+                            //,limits: [5, 7, 10]
+                            //,limit: 5 //每页默认显示的数量
+                        });
+
+
+
+                        //头工具栏事件
+                        table.on('toolbar(Evalution)', function (obj) {
+
+                            var checkStatus = table.checkStatus(obj.config.id);
+                            switch (obj.event) {
+                                case 'getCheckData':
+                                    var data = checkStatus.data;
+                                    layer.alert(JSON.stringify(data));
+                                    break;
+                                case 'getCheckLength':
+                                    var data = checkStatus.data;
+                                    layer.msg('选中了：' + data.length + ' 个');
+                                    break;
+                                case 'isAll':
+                                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                                    break;
+                                case 'add':
+                                    if (user.C_ROLE != "0") {
+                                        layer.open({
+                                            type: 1,//类型
+                                            area: '600px',//定义宽和高
+                                            title: "发布新课程 ",//题目
+                                            shadeClose: false,//点击遮罩层关闭
+                                            content: $('#efPublicForm'),//打开的内容
+                                            maxmin: true,
+                                        });
+
+                                    } else {
+
+                                        layer.msg("您的账户无此权限");
+                                    }
+
+
+                                    layui.use('form', function () {
+
+                                        var form = layui.form;
+                                        //CREATE_ID, I_EVT_ID, I_Course_ID
+                                        try {
+
+                                            var date = new Date();
+                                            var y = date.getFullYear();
+                                            var m = date.getMonth() + 1;
+                                            var d = date.getDate();
+                                            var h = date.getHours();
+                                            var minutes = date.getMinutes();
+                                            var s = date.getSeconds();
+                                            var strDate = y + "-" + m + "-" + d + " " + h + ":" + minutes + ":" + s;
+
+                                            GetInfo(function (info) {
+                                                var newT = new Object();
+                                                newT.ID = 0;
+                                                newT.S_Name = "";
+                                                newT.F_Score = 0;
+                                                newT.I_BD_ID = 0;
+                                                newT.I_Course_ID = 0;
+                                                newT.I_Type = 0;
+                                                newT.I_Week = 1;
+                                                newT.C_STA = 1;
+                                                newT.F_Score = 0;
+                                                newT.Icon = '';
+                                                newT.S_CREATE_UName = info.S_Name;
+                                                newT.TIME_END_EV = strDate;
+                                                newT.TIME_Star_EV = strDate;
+                                                newT.S_Desc = "欢迎大家给我提建议！谢谢！——FROM " + info.S_Name;
+                                                newT.I_Type = 1;
+                                                newT.I_CREATE_UID = info.I_UID;
+                                                form.val("efPublicForm", newT);
+
+                                            });
+
+
+
+                                            localforage.getItem("emb_user").then(function (user) {
+
+                                            }).catch(function (err) {
+                                                console.log(err); layer.msg("未登录！");
+                                                UnSent()
+                                            });
+
+
+
+
+
+
+                                        } catch (e) {
+                                            console.log(e);
+                                        }
+                                        finally {
+                                            form.render();
+                                        }
+
+
+
+                                        //时间选择器
+                                        layui.use('laydate', function () {
+                                            var laydate = layui.laydate;
+
+                                            //开始日期时间选择
+                                            laydate.render({
+                                                elem: '#pTIME_Star_EV'
+                                                , type: 'datetime'
+
+                                            });
+
+
+                                            //结束日期时间选择
+                                            laydate.render({
+                                                elem: '#pTIME_END_EV'
+                                                , type: 'datetime'
+                                                //或 range: '~' 来自定义分割字符
+                                            });
+
+
+                                        });
+
+
+                                        form.on('submit(efPublicSub)', function (data) {
+                                            try {
+                                                let info = data.field;
+                                                console.log(info);
+
+                                                $.ajax({
+                                                    url: "../EvalutionForms/PutForm/",
+                                                    type: "post",
+                                                    data: info,
+                                                    success: function (result) {
+
+                                                        if (result) {
+                                                            layer.closeAll();
+                                                            layer.msg("发布成功");
+
+                                                        }
+                                                        console.log("PutForm", result);
+
+
+                                                    }
+                                                });
+
+                                            } catch (e) {
+                                                console.log(e);
+                                            } finally {
+                                                return false;
+                                            }
+
+
+                                        });
+
+
+                                    });
+
+
+
+                                    break;
+                            };
+                        });
+
+
+
+
+                        //表工具事件
+                        table.on('tool(Evalution)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                            var data = obj.data;
+
+                            if (obj.event === 'detail') {
+
+                                layer.open({
+                                    type: 1,//类型
+                                    area: '600px',//定义宽和高
+                                    title: "发布的课程 -" + data.S_Name,//题目
+                                    shadeClose: false,//点击遮罩层关闭
+                                    content: $('#efForm'),//打开的内容
+                                    maxmin: true,
+                                });
+
+                                // 详情表的处理
+                                layui.use('form', function () {
+
+                                    var form = layui.form;
+                                    //CREATE_ID, I_EVT_ID, I_Course_ID
+
+
+                                    try {
+                                        form.val("efForm", new _ef(data));
+
+                                        function UnEdit() {
+                                            $("#efForm input").attr("disabled", "");
+                                            $("#efForm textarea").attr("disabled", "");
+                                            $("#efSubBt").hide();
+                                            $("#efForm input[name='I_Week'] ").attr("placeholder", "未发布");
+                                            $("#efForm input[name='TIME_END_EV'] ").attr("placeholder", "未发布");
+                                            $("#efForm input[name='TIME_Star_EV'] ").attr("placeholder", "未发布");
+                                        }
+
+                                        localforage.getItem("emb_user").then(function (user) {
+                                            if (user.C_ROLE == 0) {
+                                                UnEdit();
+                                            }
+
+                                        }).catch(function (err) {
+                                            console.log(err); layer.msg("未登录！");
+                                            UnEdit();
+                                        });
+
+
+
+
+
+
+                                    } catch (e) {
+                                        console.log(e);
+                                    }
+                                    finally {
+                                        form.render();
+                                    }
+
+                                    form.on('submit(efSub)', function (data) {
+                                        try {
+                                            let info = data.field;
+                                            console.log(info);
+
+
+                                            $.ajax({
+                                                url: "../EvalutionForms/PutForm/",
+                                                type: "post",
+                                                data: info,
+                                                success: function (result) {
+                                                    if (result) {
+                                                        layer.closeAll();
+                                                        layer.msg("修改成功");
+
+                                                    }
+                                                    console.log("PutForm", result);
+                                                }
+                                            });
+
+
+
+
+
+
+
+                                        } catch (e) {
+                                            console.log(e);
+                                        } finally {
+                                            return false;
+                                        }
+
+
+                                    });
+
+
+                                });
+
+
+
+
+
+
+
+                                //时间选择器
+                                layui.use('laydate', function () {
+                                    var laydate = layui.laydate;
+
+                                    //开始日期时间选择
+                                    laydate.render({
+                                        elem: '#TIME_Star_EV'
+                                        , type: 'datetime'
+
+                                    });
+
+
+                                    //结束日期时间选择
+                                    laydate.render({
+                                        elem: '#TIME_END_EV'
+                                        , type: 'datetime'
+                                        //或 range: '~' 来自定义分割字符
+                                    });
+
+
+                                });
+
+                                layer.msg(' 加载表：' + data.ID);
+
+
+
+                            } else if (obj.event === 'del') {
+                                layer.confirm('真的隐藏?', function (index) {
+                                    obj.del();
+                                    layer.close(index);
+                                });
+                            } else if (obj.event === 'edit') {
+
+                                layer.open({
+                                    type: 1,//类型
+                                    area: '500px',//定义宽和高
+                                    title: "正在评价:" + data.S_Name,//题目
+                                    shadeClose: false,//点击遮罩层关闭
+                                    content: $('#evForm'),//打开的内容
+                                    scrollbar: true,
+                                    maxmin: true,
+                                });
+
+
+                                layui.use('form', function () {
+
+                                    var form = layui.form;
+                                    //CREATE_ID, I_EVT_ID, I_Course_ID
+                                    try {
+                                        form.val("evSubmitForm", new _ev(user.ID, data.ID, data.I_Course_ID));
+                                        console.log(data);
+                                        evBarBrush();
+                                    } catch (e) {
+                                        console.log(e);
+                                    }
+                                    finally {
+                                        form.render();
+                                    }
+
+
+                                    form.on('submit(evSub)', function (data) {
+                                        try {
+                                            let info = data.field;
+                                            info.ID = user.ID;
+                                            $.ajax({
+                                                url: "../Evalutions/PutAssessment/",
+                                                type: "post",
+                                                data: info,
+                                                success: function (result) {
+
+                                                    if (result) {
+                                                        layer.closeAll();
+                                                        layer.msg("评价已飞出");
+                                                    } else {
+                                                        layer.closeAll();
+                                                         layer.msg("不知道是你说的有些不对，还是我不好，评价没发出！");
+                                                    }
+                                                    console.log("PutAssessment", result);
+                                                }
+                                            });
+                                            console.log(info);
+                                        } catch (e) {
+                                            console.log(e);
+                                        } finally {
+                                            return false;
+                                        }
+
+
+                                    });
+                                });
+
+
+
+                                //layer.alert('编辑行：<br>' + JSON.stringify(data))
+                            }
+                        });
+
+
+
+                    });
+
+
+                }
+            });
+
+        });
+    }
+    BrushEFTable();
 </script>

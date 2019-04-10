@@ -145,8 +145,10 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClassNamesController.cs" />
     <Compile Include="Controllers\CommunitiesController.cs" />
+    <Compile Include="Controllers\CourseTempsController.cs" />
     <Compile Include="Controllers\EvalutionFormsController.cs" />
     <Compile Include="Controllers\EvalutionsController.cs" />
+    <Compile Include="Controllers\EvalutionTempsController.cs" />
     <Compile Include="Controllers\GradesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublicController.cs" />
@@ -492,6 +494,17 @@
     <Content Include="Views\UserBundTables\Details.cshtml" />
     <Content Include="Views\UserBundTables\Edit.cshtml" />
     <Content Include="Views\UserBundTables\Index.cshtml" />
+    <Content Include="Views\CourseTemps\Create.cshtml" />
+    <Content Include="Views\CourseTemps\Delete.cshtml" />
+    <Content Include="Views\CourseTemps\Details.cshtml" />
+    <Content Include="Views\CourseTemps\Edit.cshtml" />
+    <Content Include="Views\CourseTemps\Index.cshtml" />
+    <Content Include="Views\EvalutionTemps\Create.cshtml" />
+    <Content Include="Views\EvalutionTemps\Delete.cshtml" />
+    <Content Include="Views\EvalutionTemps\Details.cshtml" />
+    <Content Include="Views\EvalutionTemps\Edit.cshtml" />
+    <Content Include="Views\EvalutionTemps\Index.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

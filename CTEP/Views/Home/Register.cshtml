@@ -183,6 +183,7 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+            localforage.clear();
             $('[data-toggle="tooltip"]').tooltip();
 
             layer.tips('登录注册切换按钮', '#tranLog');
