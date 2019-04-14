@@ -389,7 +389,7 @@
 
 
 
-<table class="layui-hide" id="Evalution" lay-filter="Evalution" lay-data="{height: 'full-200'"></table>
+<table class="layui-hide hidden" id="Evalution" lay-filter="Evalution" lay-data="{height: 'full-200'"></table>
 
 
 
@@ -419,6 +419,19 @@
 
 <script>
 
+
+    function GetNowTime() {
+         var date = new Date();
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            var h = date.getHours();
+            var minutes = date.getMinutes();
+            var s = date.getSeconds();
+           return  y+"-"+m+"-"+d+" "+h+":"+minutes+":"+s;
+    }
+           
+
     var _shuPanl = '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">选一个课程属！<br>选择属可以和多个老师交流教学心得！<br> {0}^_^</div>'
     var _shuBt = '<button name="{ID}" class="layui-btn  layui-btn-sm emb-shu" lay-event="">{S_Name}</button>';
     String.prototype.format = function () {
@@ -436,14 +449,32 @@
         }
     }
 
-
+    
+    var index = layer.open({
+        type: 1,//类型
+        area: window.screen.availWidth-35+"px",//定义宽和高
+        title: "评价表",//题目
+        shade: 0,
+        shadeClose: false,//点击遮罩层关闭
+        content: $('#Evalution'),//打开的内容
+        maxmin: true,
+        closeBtn: false,
+        offset: '10px',
+        scrollbar: true,
+        resizing: function (layero) {
+            let hight = parseInt(layero.css("height").replace("px", ""));
+            let width = parseInt(layero.css("width").replace("px", ""));
+             $('#Evalution').css("height", hight - 40 + "px");
+            $('#Evalution').css("width", width + "px");
+        }
+    });
     function noticeTip(panel) {
         //示范一个公告层
         return index = layer.open({
             type: 1
             , title: false //不显示标题栏
             , closeBtn: false
-            , area: '300px;'
+            , area:  window.screen.availWidth-60+"px"
             , shade: 0.8
             , id: 'LAY_layuipro' //设定一个id，防止重复弹出
             , btn: ['自己就是', '不选了']
@@ -583,7 +614,7 @@
         this.I_EVT_ID = -1;
         this.I_Type = 0;
         this.I_Course_ID = -1;
-        this.TIME_CREATE = new Date();
+        this.TIME_CREATE = GetNowTime(),
         this.F_Score = 50;
         this.C_STA = 0;
         this.F_TeachObj = 50;
@@ -615,7 +646,7 @@
             I_EVT_ID: this.I_EVT_ID,
             I_Type: this.I_Type,
             S_Desc: this.S_Desc,
-            TIME_CREATE: this.TIME_CREATE,
+            TIME_CREATE: GetNowTime(),
         }
     }
 
@@ -730,13 +761,13 @@
                             toolbar: '#toolbar'
                             , title: '用户数据表'
                             , cols: [[ //标题栏
-                                { type: 'checkbox', fixed: 'left' }
-                                , { field: 'ID', title: '课程ID', width: 80, sort: true, fixed: 'left' }
-                                , { field: 'S_Name', title: '课程名', width: 120 }
+                                { type: 'checkbox', fixed: 'left' } 
+                                , { field: 'S_Name', title: '课程名', width: 120 , fixed: 'left'}
+                                , { field: 'ID', title: '课程ID', width: 80, sort: true }
                                 , { field: 'S_CREATE_UName', title: '教师名', minWidth: 120 }
                                 , { field: 'S_Desc', title: '课程描述', minWidth: 200 }
-                                , { field: 'I_Type', title: '课程状态', width: 80 }
-                                , { field: 'I_Week', title: '星期(周)', width: 80 }
+                                , { field: 'I_Type', title: '课程状态', width: 80, sort: true  }
+                                , { field: 'I_Week', title: '星期(周)', width: 80, sort: true  }
                                 , { field: 'F_Score', title: '得分', width: 80, sort: true }
                                 , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar', fixed: 'right' }
                             ]]
@@ -771,7 +802,7 @@
                                     if (user.C_ROLE != "0") {
                                         layer.open({
                                             type: 1,//类型
-                                            area: '600px',//定义宽和高
+                                            area: window.screen.availWidth-40+"px",//定义宽和高
                                             title: "发布新课程 ",//题目
                                             shadeClose: false,//点击遮罩层关闭
                                             content: $('#efPublicForm'),//打开的内容
@@ -790,14 +821,7 @@
                                         //CREATE_ID, I_EVT_ID, I_Course_ID
                                         try {
 
-                                            var date = new Date();
-                                            var y = date.getFullYear();
-                                            var m = date.getMonth() + 1;
-                                            var d = date.getDate();
-                                            var h = date.getHours();
-                                            var minutes = date.getMinutes();
-                                            var s = date.getSeconds();
-                                            var strDate = y + "-" + m + "-" + d + " " + h + ":" + minutes + ":" + s;
+                                            
 
                                             GetInfo(function (info) {
                                                 var newT = new Object();
@@ -812,8 +836,8 @@
                                                 newT.F_Score = 0;
                                                 newT.Icon = '';
                                                 newT.S_CREATE_UName = info.S_Name;
-                                                newT.TIME_END_EV = strDate;
-                                                newT.TIME_Star_EV = strDate;
+                                                newT.TIME_END_EV = GetNowTime();
+                                                newT.TIME_Star_EV =GetNowTime();
                                                 newT.S_Desc = "欢迎大家给我提建议！谢谢！——FROM " + info.S_Name;
                                                 newT.I_Type = 1;
                                                 newT.I_CREATE_UID = info.I_UID;
@@ -1090,7 +1114,7 @@
                                                     console.log("PutAssessment", result);
                                                 }
                                             });
-                                            console.log(info);
+                                            console.log(info.TIME_CREATE);
                                         } catch (e) {
                                             console.log(e);
                                         } finally {

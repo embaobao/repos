@@ -11,72 +11,32 @@
 
             <div class="d-flex">
                 <div id="leftC" class="p-2">
-                    <div class="layui-collapse" lay-accordion>
+                    <div id="formItem" class="layui-collapse" lay-accordion>
 
                         <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">软甲工程</h2>
+                            <h2 class="layui-colla-title">软件工程</h2>
                             <div class="layui-colla-content layui-show">内容区域</div>
                         </div>
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">软件测试</h2>
                             <div class="layui-colla-content layui-show">
-                           <a class="btn-link"></a>
-                            
+                                <a class="btn-link"></a>
+
                             </div>
                         </div>
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">大学体育</h2>
                             <div class="layui-colla-content layui-show">内容区域</div>
                         </div>
-                   
-                    
+
+
                     </div>
                 </div>
                 <div class="p-2 flex-grow-1" id="rightC">
 
                     <div class="layui-card">
                         <div class="layui-card-body">
-
-                            <ul class="layui-timeline">
-                                <li class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月18日</h3>
-                                        <p>
-                                           第 3个用户评价
-                                            <br>教学能力 ：88 
-                                            <br>无论它能走多远，抑或如何支撑？至少我曾倾注全心，无怨无悔 <i class="layui-icon"></i>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月16日</h3>
-                                        <p>杜甫的思想核心是儒家的仁政思想，他有“<em>致君尧舜上，再使风俗淳</em>”的宏伟抱负。个人最爱的名篇有：</p>
-                                        <ul>
-                                            <li>《登高》</li>
-                                            <li>《茅屋为秋风所破歌》</li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <h3 class="layui-timeline-title">8月15日</h3>
-                                        <p>用户
-                                           
-                                           老师讲的挺好的
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="layui-timeline-item">
-                                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                    <div class="layui-timeline-content layui-text">
-                                        <div class="layui-timeline-title">发起评价</div>
-                                    </div>
-                                </li>
-                            </ul>
+                            <ul id="assessUL" class="layui-timeline"></ul>
 
 
 
@@ -97,6 +57,21 @@
         var element = layui.element;
 
     });
+
+    String.prototype.format = function () {
+        if (arguments.length == 0) return this;
+        var param = arguments[0];
+        var s = this;
+        if (typeof (param) == 'object') {
+            for (var key in param)
+                s = s.replace(new RegExp("\\{" + key + "\\}", "g"), param[key]);
+            return s;
+        } else {
+            for (var i = 0; i < arguments.length; i++)
+                s = s.replace(new RegExp("\\{" + i + "\\}", "g"), arguments[i]);
+            return s;
+        }
+    }
     var index = layer.open({
         type: 1,//类型
         area: '600px',//定义宽和高
@@ -105,6 +80,7 @@
         shadeClose: false,//点击遮罩层关闭
         content: $('#community'),//打开的内容
         maxmin: true,
+        closeBtn: false,
         scrollbar: false,
         resizing: function (layero) {
             let hight = parseInt(layero.css("height").replace("px", ""));
@@ -114,19 +90,47 @@
         }
     });
 
-    //layer.tab({
-    //    area: ['600px', '300px'],
-    //    tab: [{
-    //        title: 'TAB1',
-    //        content: '内容1'
-    //    }, {
-    //        title: 'TAB2',
-    //        content: '内容2'
-    //    }, {
-    //        title: 'TAB3',
-    //        content: '内容3'
-    //    }]
-    //});
-    //layer.iframeAuto(index);
+    let _form = ' <div class="layui-colla-item"><h2 class="layui-colla-title">{title}-{StatusNum}</h2><div class="layui-colla-content layui-show"></div></div>';
+    let _LI = '<li id="assID_{ID}" class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">{TIME_CREATE}</h3> {S_Desc}</div></li>'
+
+
+    function Brush(data) {
+        var ul = $("#assessUL");
+        var Items = $("#formItem");
+
+        for (let i in data) {
+            let element = data[i]
+            Items.append(_form.format(element));
+            let assList = element.body
+            for (let n in assList) {
+                ul.append(_LI.format(assList[n]));
+            }
+        }
+    }
+    $(document).ready(function () {
+        _GetData("emb_assess", function (data) {
+
+
+             Brush(data);
+
+
+        });
+       
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
