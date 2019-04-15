@@ -141,6 +141,13 @@ hr {
     overflow: hidden;
 }
 
+.icon-xsm {
+    width: 1.2em !important;
+    height: 1.2em !important;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
 .icon-xlg {
     width: 5em !important;
     height: 5em !important;
@@ -158,4 +165,14 @@ hr {
 }
 .hidden {
 display:none;
+}
+.icon-sm:hover
+{
+    font-size: 50px;
+}
+.icon-xsm:hover {
+    font-size: 50px;
+}
+.icon:hover {
+    font-size: 50px;
 }
