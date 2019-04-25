@@ -7,9 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CTEP.Models;
+using CTEP.Filter;
 
 namespace CTEP.Controllers
-{
+{   [AuthorActionFilterAttribute]
     public class UsersController : BaseController
     {
 
@@ -35,7 +36,7 @@ namespace CTEP.Controllers
             if (i>0)
             {
               User u= db.Users.Find(i);
-                if (user.PW == u.PW)
+                if (user.PW == u.PW&&user.C_ROLE==u.C_ROLE&&u.C_STA==1)
                 {
                     return Json(u);//返回对象
                 }
@@ -131,6 +132,7 @@ namespace CTEP.Controllers
 
 
         // GET: Users
+
         public ActionResult Index()
         {
 

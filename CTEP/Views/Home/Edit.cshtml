@@ -196,20 +196,11 @@
                 <div class="layui-card-header">绑定信息</div>
                 <div class="layui-card-body">
 
-
-
                     <table class="layui-hide" id="bdT" lay-filter="bdT"></table>
 
 
-
-
-
-
-
-
-
-
-
+                    <hr class="layui-bg-cyan">
+                    <small>提示: 类型 1：学校 | 类型 2：院系  |类型 3：年级 | 类型 4：班级</small>
                 </div>
             </div>
         </div>
@@ -249,16 +240,19 @@
             }
         }
 
-
-            var date = new Date();
+        function getdate() {
+             var date = new Date();
             var y = date.getFullYear();
             var m = date.getMonth()+1;
             var d = date.getDate();
             var h = date.getHours();
             var minutes = date.getMinutes();
             var s = date.getSeconds();
-            var strDate = y+"-"+m+"-"+d+" "+h+":"+minutes+":"+s;
+            return y+"/"+m+"/"+d+" "+h+":"+minutes+":"+s;
+        }
 
+
+       //  2019/4/24 1:02:09
         //2019-04-10 17:27:20.247
         var userInfo = {
             I_UID: -1,
@@ -267,9 +261,9 @@
             S_Address: "未知",
             S_EV_BD: '',
             S_Set: '["on", "on", "on"]',
-            TIME_CRATE: strDate,
-            TIME_Used: strDate,
-            TIME_LastUsed:strDate,
+            TIME_CRATE:'',
+            TIME_Used:'',
+            TIME_LastUsed:'' ,
             C_STA: 1,
             Gender: 0,
             Icon: '',
@@ -278,57 +272,27 @@
 
 
         GetUser(function (user) {
+            if (user !== null) {
 
-            try {
-                GetBund(function (result) {
 
-                     layui.use('table', function () {
-                            var table = layui.table;
-                            //ID, I_UID, I_Type, I_BD_ID
-                            //展示已知数据
-                            table.render({
-                                elem: '#bdT'
-                                ,cols: [[ //标题栏
-                                    { field: 'ID', title: '绑定ID', width: 80, sort: true }
-                                    , { field: 'I_UID', title: '绑定用户码', width: 120 }
-                                    , { field: 'I_Type', title: '类型', minWidth: 120 }
-                                    , { field: 'I_BD_ID', title: '绑定码', minWidth: 200 }
-                                    , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar' }
-                                ]]
-                                ,data: result,
-                                //,skin: 'line' //表格风格ID,I_UID,I_Type,I_BD_ID
-                                even: true,
-                                page: true //是否显示分页
-                                //,limits: [5, 7, 10]
-                                //,limit: 5 //每页默认显示的数量
-                            });
 
-                        });
-                });
+                try {
+                    GetBund(function (result) {
 
-            } catch (e) {
-
-                      $.ajax({
-                    url: "../UserBundTables/Bund/",
-                    type: "post",
-                    data: user,
-                    success: function (result) {
-                        _SaveData("emb_bund", result, function () { });
-                        console.log("绑定数据",result);
                         layui.use('table', function () {
                             var table = layui.table;
                             //ID, I_UID, I_Type, I_BD_ID
                             //展示已知数据
                             table.render({
                                 elem: '#bdT'
-                                ,cols: [[ //标题栏
+                                , cols: [[ //标题栏
                                     { field: 'ID', title: '绑定ID', width: 80, sort: true }
                                     , { field: 'I_UID', title: '绑定用户码', width: 120 }
                                     , { field: 'I_Type', title: '类型', minWidth: 120 }
                                     , { field: 'I_BD_ID', title: '绑定码', minWidth: 200 }
                                     , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar' }
                                 ]]
-                                ,data: result,
+                                , data: result,
                                 //,skin: 'line' //表格风格ID,I_UID,I_Type,I_BD_ID
                                 even: true,
                                 page: true //是否显示分页
@@ -337,22 +301,50 @@
                             });
 
                         });
-                    },
-                      });
-                console.log(e);
+                    });
 
-            }
+                } catch (e) {
+
+                    $.ajax({
+                        url: "../UserBundTables/Bund/",
+                        type: "post",
+                        data: user,
+                        success: function (result) {
+                            _SaveData("emb_bund", result, function () { });
+                            console.log("绑定数据", result);
+                            layui.use('table', function () {
+                                var table = layui.table;
+                                //ID, I_UID, I_Type, I_BD_ID
+                                //展示已知数据
+                                table.render({
+                                    elem: '#bdT'
+                                    , cols: [[ //标题栏
+                                        { field: 'ID', title: '绑定ID', width: 80, sort: true }
+                                        , { field: 'I_UID', title: '绑定用户码', width: 120 }
+                                        , { field: 'I_Type', title: '类型', minWidth: 120 }
+                                        , { field: 'I_BD_ID', title: '绑定码', minWidth: 200 }
+                                        , { fixed: 'right', width: 180, align: 'center', toolbar: '#bar' }
+                                    ]]
+                                    , data: result,
+                                    //,skin: 'line' //表格风格ID,I_UID,I_Type,I_BD_ID
+                                    even: true,
+                                    page: true //是否显示分页
+                                    //,limits: [5, 7, 10]
+                                    //,limit: 5 //每页默认显示的数量
+                                });
+
+                            });
+                        },
+                    });
+                    console.log(e);
+
+                }
 
 
+                GetInfo(function (info) {
 
-
-
-
-
-        localforage.getItem('emb_info').then(function (value) {
-            // 当离线仓库中的值被载入时，此处代码运行
-            if (value != null) {
-                userInfo = value;
+                if (info != null) {
+                userInfo = info;
                 if (userInfo.C_STA != "0") {
                     userInfo.C_STA = "on";
                 }
@@ -362,24 +354,20 @@
                 } else {
                     userInfo.S_Set = JSON.parse(userInfo.S_Set);
                 }
-
-
-
                 console.log('离线仓库中emb_info↓');
                 console.log(userInfo);
-                $("#user_name").text(userInfo.S_Name);
-            }
-            else {
-                $("#user_name").text("请登录")
-            }
+                    $("#user_name").text(userInfo.S_Name);
+                } else {
+                    //$("#user_name").text("请登录");
+                }
+
+                });
 
 
-
-         layui.use('form', function () {
+                 layui.use('form', function () {
 
              var form = layui.form;
-             userInfo.I_UID = user.ID;
-
+             GetUser(function(user){  userInfo.I_UID = user.ID; })
                     //加载学校
                     try{ var _option = '<option value="{ID}">{S_Name}</option>'
 
@@ -547,6 +535,9 @@
                             function (data, status) {
                                 if (data) {
                                     layer.msg("保存好了哦！");
+                                }
+                                else {
+                                    layer.msg("保存失败，稍后保存试试吧！");
                                 } console.log("回传数据", data);
                           });
 
@@ -636,32 +627,7 @@
                    });
 
 
-
-
-
-
-        });
-
-
-
-
-
-              });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            }
         });
 
 
@@ -681,6 +647,11 @@
 
 
 
+
+
+
+
+     });
 
 
 

@@ -1,63 +1,150 @@
 ﻿
 @{
-    ViewBag.Title = "Community";
+    ViewBag.Title = "语";
 }
 
-<h2>Community</h2>
+<div class="layui-tab layui-tab-card">
+    <ul id="eforms" class="layui-tab-title">
+        <li class="layui-this">介绍<span class="layui-badge-dot"></span></li>
 
-<div id="community" class="layui-fluid hidden ">
-    <div class="layui-card">
-        <div class="layui-card-body">
+    </ul>
 
-            <div class="d-flex">
-                <div id="leftC" class="p-2">
-                    <div id="formItem" class="layui-collapse" lay-accordion>
+    <div id="eforms_items" class="layui-tab-content" style="height:40em;  margin: 0;">
 
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">软件工程</h2>
-                            <div class="layui-colla-content layui-show">内容区域</div>
-                        </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">软件测试</h2>
-                            <div class="layui-colla-content layui-show">
-                                <a class="btn-link"></a>
+        <div class="layui-tab-item layui-show">
+
+
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul id="formItem" class="layui-tab-title">
+                    <li class="layui-this">评价详情<span class="layui-badge-dot layui-bg-orange"></span></li>
+                    <li data-groupid="0" class="chat">讨论组<span class="layui-badge layui-bg-cyan">9+</span></li>
+                </ul>
+                <div class="layui-tab-content">
+
+                    <div class="layui-tab-item layui-show">
+                        <ul class="layui-timeline">
+                            <li class="layui-timeline-item">
+                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                                <div class="layui-timeline-content layui-text">
+                                    <h3 class="layui-timeline-title">2019-12-1 2:00:34</h3>
+                                    <p>学生—0—做出评价：“<em>致君尧舜上，再使风俗淳</em>”</p>
+                                    <ul>
+                                        <li>教学目标完成程度：<span class="layui-badge">100</span>  </li>
+                                        <li>教学方法： <span class="layui-badge layui-bg-orange">99-90</span></li>
+                                        <li>教学态度： <span class="layui-badge layui-bg-green">89-80</span></li>
+                                        <li>教学关系： <span class="layui-badge layui-bg-cyan">79-70</span></li>
+                                        <li>教学能力：<span class="layui-badge layui-bg-blue">69-60</span></li>
+                                        <li>总体评分: <span class="layui-badge layui-bg-gray">59-40</span></li>
+                                        <li>系统评分： <span class="layui-badge-rim">不大于40</span></li>
+                                    </ul>
+
+                                </div>
+                            </li>
+
+                        </ul>
+
+
+                    </div>
+                    <div class="layui-tab-item">
+
+
+                        <div class="layui-card">
+                            <div id="ef_ms0" class="layui-card-body " style="height:34em; padding:0;  margin: 0;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            text-align: center;
+            font-size: small;">
+                               
+                                <div class="alert alert-dismissible rounded-0">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <a href="#" class="alert-link" style="float:left;">
+                                        <img src="~/Content/images/biu.png" style=" width: 2em;">
+                                        <span class="badge badge-secondary">2019-12-1 2:00:34  </span>
+                                        <!-- <span class="badge"></span> -->
+                                    </a>
+                                    <strong>吃火星的宝宝:</strong>
+                                    欢迎使用！
+                                    <a href="#" class="alert-link">
+                                        <span class="badge badge-pill bg-warning">附件:ctep.exe</span>
+                                    </a>
+                                    <hr class="layui-bg-cyan">
+                                </div>
+
+
 
                             </div>
+
+
+                            <div class="form-inline flex-row-reverse">
+                               
+                               
+                                <button  id="ef_ms_bt0" data-groupid ="0" type="submit" class="btn btn-outline-info rounded-0 mssend" style="margin-left:1em;margin-right:2em;width:6em">发表</button>
+                                <input id="ef_ms_txt0"  data-groupid ="0" type="text" class="form-control w-75 rounded-0"
+                                       placeholder="输入您的见解" />
+                            </div>
+
                         </div>
-                        <div class="layui-colla-item">
-                            <h2 class="layui-colla-title">大学体育</h2>
-                            <div class="layui-colla-content layui-show">内容区域</div>
-                        </div>
+
+
+
+
+
 
 
                     </div>
-                </div>
-                <div class="p-2 flex-grow-1" id="rightC">
-
-                    <div class="layui-card">
-                        <div class="layui-card-body">
-                            <ul id="assessUL" class="layui-timeline"></ul>
-
-
-
-                        </div>
-                    </div>
 
                 </div>
+
+
+
+
+
             </div>
 
+
+
+
+
+
+
+
+
         </div>
+
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<div class="alert alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <div class="container">
+        <blockquote class="blockquote">
+            <h3>
+                语，论也。
+            </h3>
+            <footer class="blockquote-footer">—东汉·许慎《说文》</footer>
+        </blockquote>
     </div>
 
 </div>
 
+
+
+<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+
+
 <script>
-
-    layui.use('element', function () {
-        var element = layui.element;
-
-    });
-
     String.prototype.format = function () {
         if (arguments.length == 0) return this;
         var param = arguments[0];
@@ -72,61 +159,177 @@
             return s;
         }
     }
-    var index = layer.open({
-        type: 1,//类型
-        area: '600px',//定义宽和高
-        title: "你好！",//题目
-        shade: 0,
-        shadeClose: false,//点击遮罩层关闭
-        content: $('#community'),//打开的内容
-        maxmin: true,
-        closeBtn: false,
-        scrollbar: false,
-        resizing: function (layero) {
-            let hight = parseInt(layero.css("height").replace("px", ""));
-            let width = parseInt(layero.css("width").replace("px", ""));
-            $("#leftC").css("height", hight - 70 + "px");
-            $("#rightC").css("height", hight - 70 + "px");
-        }
+
+
+    var groupId = 0;
+    var windowWidth = window.screen.availWidth;
+
+
+
+
+
+
+    var _mspanel = '<div class="alert alert-dismissible rounded-0"><button type="button"class="close"data-dismiss="alert">&times;</button><a href="#"class="alert-link"style="float:left;"><span class="badge badge-secondary">{time}</span></a><strong><span class="layui-badge layui-bg-cyan">{name} 說:</span></strong>{content}<hr class="layui-bg-cyan"></div>';
+
+
+
+    var date = new Date();
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var minutes = date.getMinutes();
+    var s = date.getSeconds();
+    var strDate = y + "-" + m + "-" + d + " " + h + ":" + minutes + ":" + s;
+
+
+    ////加入聊天室
+    //$("#joinRoom").click(function () {
+    //    var groupId = $("#groupId").val();
+    //    var userName = $("#userName").val();
+    //    chat.server.addToRoom(groupId, userName);
+    //});
+
+    ////发送消息
+    //$("#send").click(function () {
+    //    var detail = $("#Groupmessage").val();
+    //    var groupId = $("#groupId").val();
+    //    var userName = $("#userName").val();
+    //    chat.server.send(groupId, detail, userName, "1");
+    //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+    layui.use('element', function () {
+        var element = layui.element;
+
     });
 
-    let _form = ' <div class="layui-colla-item"><h2 class="layui-colla-title">{title}-{StatusNum}</h2><div class="layui-colla-content layui-show"></div></div>';
-    let _LI = '<li id="assID_{ID}" class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">{TIME_CREATE}</h3> {S_Desc}</div></li>'
+    function getScoreDop(score) {
+        score = Number(score);
+        if (score == 100) {
+            return '<span class="layui-badge"> ' + score + '</span>';
+        }
+        else if (score <= 99 && score > 90) {
+            return '<span class="layui-badge layui-bg-orange"> ' + score + '</span>';
+        }
+        else if (score <= 90 && score > 80) {
+            return '<span class="layui-badge layui-bg-green"> ' + score + '</span>';
+        }
+        else if (score <= 80 && score > 70) {
+            return '<span class="layui-badge layui-bg-cyan"> ' + score + '</span>';
+        }
+        else if (score <= 70 && score > 60) {
+            return '<span class="layui-badge layui-bg-blue"> ' + score + '</span>';
+        }
+        else if (score <= 60 && score >= 40) {
+            return '<span class="layui-badge layui-bg-gray"> ' + score + '</span>';
+        }
+        else {
+            return '<span class="layui-badge-rim"> ' + score + '</span>';
+        }
 
 
-    function Brush(data) {
-        var ul = $("#assessUL");
-        var Items = $("#formItem");
+    }
+
+
+   
+    let _EF = '<li>{title}-{StatusNum}</li>';
+    let _EFIteams = '<div id="efs_{StatusNum}"  class="layui-tab-item"><div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="height:34em; overflow-x: hidden;overflow-y: scroll;"><ul id="formItem"class="layui-tab-title"><li class="layui-this">评价详情<span class="layui-badge-dot layui-bg-orange"></span></li><li data-groupid="{StatusNum}" class="chat" >讨论组<span class="layui-badge layui-bg-cyan">0</span></li></ul><div class="layui-tab-content"><div class="layui-tab-item"><ul id="ef_evs{StatusNum}"class="layui-timeline"></ul></div><div class="layui-tab-item"><div class="layui-card"><div id="ef_ms{StatusNum}"class="layui-card-body "style="height:30em; padding:0;  margin: 0;overflow-x: hidden;overflow-y: scroll;text-align:center;font-size: small;"></div><div class="form-inline flex-row-reverse"><button id="ef_ms_bt{StatusNum}" data-groupid="{StatusNum}" type="submit"class="btn btn-outline-info rounded-0 mssend"style="margin-left:1em;margin-right:2em;width:6em">发表</button><input id="ef_ms_txt{StatusNum}"name="ef_ms_txt"type="text"class="form-control w-75 rounded-0"placeholder="输入您的见解"/></div></div></div></div></div></div>';
+    let _vIteam = '<li  class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i><div class="layui-timeline-content layui-text"><h3 class="layui-timeline-title">{TIME_CREATE}</h3><p>学生—{I_CREATE_UID}—做出评价：“<em>{S_Desc}</em>”</p><ul><li>教学目标完成程度：{F_TeachObj}</li><li>教学方法：{F_TeachMethod}</li><li>教学态度：{F_TeachAttitude}</li><li>教学关系：{F_StudentRelation}</li><li>教学能力：{F_TeachAbility}</li><li>总体评分:{F_Score}</li><li>系统评分：{Score}</li></ul></div></li>';
+    function Brush(data, fun) {
+        var eforms = $("#eforms");
+        var items = $("#eforms_items");
 
         for (let i in data) {
             let element = data[i]
-            Items.append(_form.format(element));
-            let assList = element.body
+            eforms.append(_EF.format(element));
+            let index = element.StatusNum;
+            items.append(_EFIteams.format(element));
+
+            let assList = element.body;
             for (let n in assList) {
-                ul.append(_LI.format(assList[n]));
+
+                let vitem = assList[n];
+                vitem.Score = Number((vitem.F_Score + vitem.F_TeachAttitude + vitem.F_StudentRelation + vitem.F_TeachAbility + vitem.F_TeachMethod + vitem.F_TeachObj) / 6).toFixed(2);
+                vitem.F_Score = getScoreDop(vitem.F_Score);
+                vitem.F_TeachAttitude = getScoreDop(vitem.F_TeachAttitude);
+                vitem.F_StudentRelation = getScoreDop(vitem.F_StudentRelation);
+                vitem.F_TeachAbility = getScoreDop(vitem.F_TeachAbility);
+                vitem.F_TeachMethod = getScoreDop(vitem.F_TeachMethod);
+                vitem.F_TeachObj = getScoreDop(vitem.F_TeachObj);
+                vitem.Score = getScoreDop(vitem.Score);
+                $("#ef_evs" + index).append(_vIteam.format(vitem));
+
+
+
             }
+
+
         }
+
+        fun();
     }
+
+
     $(document).ready(function () {
+        var chat = $.connection.chatHub;
+        chat.hubName = 'chatHub';
+        chat.connection.start();
+        chat.client.addSomeMessage = function (groupId, detail, userName) {
+            console.info(groupId + "广播消息：" + detail);
+            $("#ef_ms" + groupId).append(_mspanel.format({ time: strDate, name: userName, content: detail }));
+        };
+
+        chat.client.addUserIn = function (groupId, userName) {
+            layer.tips(userName+'加入讨论！', "#ef_ms" + groupId);
+          
+        };
+
+        $.connection.hub.logging = true;//启动signalr状态功能
+
         _GetData("emb_assess", function (data) {
-             Brush(data);
+            Brush(data, function () {
+
+                $(".chat").on("click", function (e) {
+
+                    GetInfo(function (info) {
+                        groupId = $(e.currentTarget).attr("data-groupid");
+                        chat.server.addToRoom(groupId, info.S_Name);
+                        console.log(groupId);
+                    });
+                });
+                //发送消息
+                $(".mssend").click(function (e) {
+
+                    GetInfo(function (info) {
+                        groupId = $(e.currentTarget).attr("data-groupid");
+                        console.log(groupId);
+                        var detail = $("#ef_ms_txt" + groupId).val();
+                        chat.server.send(groupId, detail,info.S_Name, "1");
+                        $("#ef_ms_txt" + groupId).val("");
+                    });
+
+                });
+
+
+            });
+
         });
-       
+
+
 
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
+

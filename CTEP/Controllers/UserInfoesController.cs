@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CTEP.Filter;
 using CTEP.Models;
 
 namespace CTEP.Controllers
 {
+    [AuthorActionFilterAttribute]
     public class UserInfoesController : BaseController
     {
 

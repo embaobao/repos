@@ -389,7 +389,7 @@
 
 
 
-<table class="layui-hide hidden" id="Evalution" lay-filter="Evalution" lay-data="{height: 'full-200'"></table>
+<table class="layui-hide" id="Evalution" lay-filter="Evalution" lay-data="{height: 'full-200'"></table>
 
 
 
@@ -449,32 +449,33 @@
         }
     }
 
-    
-    var index = layer.open({
-        type: 1,//类型
-        area: window.screen.availWidth-35+"px",//定义宽和高
-        title: "评价表",//题目
-        shade: 0,
-        shadeClose: false,//点击遮罩层关闭
-        content: $('#Evalution'),//打开的内容
-        maxmin: true,
-        closeBtn: false,
-        offset: '10px',
-        scrollbar: true,
-        resizing: function (layero) {
-            let hight = parseInt(layero.css("height").replace("px", ""));
-            let width = parseInt(layero.css("width").replace("px", ""));
-             $('#Evalution').css("height", hight - 40 + "px");
-            $('#Evalution').css("width", width + "px");
-        }
-    });
+    var windowWidth = window.screen.availWidth;
+
+    //var index = layer.open({
+    //    type: 1,//类型
+    //    area: windowWidth-(windowWidth*0.2)+"px",//定义宽和高
+    //    title: "评价表",//题目
+    //    shade: 0,
+    //    shadeClose: false,//点击遮罩层关闭
+    //    content: $('#Evalution'),//打开的内容
+    //    maxmin: true,
+    //    closeBtn: false,
+    //    offset: '10px',
+    //    scrollbar: true,
+    //    resizing: function (layero) {
+    //        let hight = parseInt(layero.css("height").replace("px", ""));
+    //        let width = parseInt(layero.css("width").replace("px", ""));
+    //         $('#Evalution').css("height", hight - 40 + "px");
+    //        $('#Evalution').css("width", width + "px");
+    //    }
+    //});
     function noticeTip(panel) {
-        //示范一个公告层
+        //一个公告层
         return index = layer.open({
             type: 1
             , title: false //不显示标题栏
             , closeBtn: false
-            , area:  window.screen.availWidth-60+"px"
+            , area:windowWidth- (windowWidth*0.5)+"px"
             , shade: 0.8
             , id: 'LAY_layuipro' //设定一个id，防止重复弹出
             , btn: ['自己就是', '不选了']
@@ -802,7 +803,7 @@
                                     if (user.C_ROLE != "0") {
                                         layer.open({
                                             type: 1,//类型
-                                            area: window.screen.availWidth-40+"px",//定义宽和高
+                                            area: windowWidth- (windowWidth*0.3)+"px",//定义宽和高
                                             title: "发布新课程 ",//题目
                                             shadeClose: false,//点击遮罩层关闭
                                             content: $('#efPublicForm'),//打开的内容
@@ -1082,6 +1083,7 @@
 
                                     var form = layui.form;
                                     //CREATE_ID, I_EVT_ID, I_Course_ID
+                                    
                                     try {
                                         form.val("evSubmitForm", new _ev(user.ID, data.ID, data.I_Course_ID));
                                         console.log(data);
@@ -1097,6 +1099,7 @@
                                     form.on('submit(evSub)', function (data) {
                                         try {
                                             let info = data.field;
+                                            info.TIME_CREATE = GetNowTime();
                                             info.ID = user.ID;
                                             $.ajax({
                                                 url: "../Evalutions/PutAssessment/",

@@ -283,6 +283,24 @@
 
 
             });
+
+
+           function parseDate(timeSpan) {
+        timeSpan = timeSpan.replace('Date', '').replace('(', '').replace(')', '').replace(/\//g, '');
+        var d = new Date(parseInt(timeSpan));
+        return d;
+            }
+
+             function getdate(date) {
+
+            var y = date.getFullYear();
+            var m = date.getMonth()+1;
+            var d = date.getDate();
+            var h = date.getHours();
+            var minutes = date.getMinutes();
+            var s = date.getSeconds();
+            return y+"/"+m+"/"+d+" "+h+":"+minutes+":"+s;
+        }
             emialTxt.change(function () {
                 user.MAIL = emialTxt.val();
                 console.log("用户邮箱设定:" + user.MAIL);
@@ -304,6 +322,20 @@
 
                                     $.get("@Url.Action("InfoByMail","Users")" + "?mail=" + user.MAIL, function (info, status) {
 
+                                        try {
+                                            info.TIME_CRATE = getdate(parseDate(info.TIME_CRATE));
+                                            info.TIME_LastUsed = getdate(parseDate(info.TIME_LastUsed));
+                                            info.TIME_Used = getdate(parseDate(info.TIME_Used));
+                                        } catch (err) {
+                                            info.TIME_CRATE = getdate(new Date());
+                                            info.TIME_LastUsed = getdate(new Date());
+                                            info.TIME_Used = getdate(new Date());
+                                            layer.msg("您的时空有些错乱，正在加载您地用户数据...");
+
+                                        } finally {
+                                            
+                                        }
+                                               
                                         localforage.setItem('emb_info', info).then(function (value) {
                                             console.log(value);
                                               layer.msg("数据加载中");
@@ -368,7 +400,6 @@
 
 
                 try {
-
 
                     $.post( "@Url.Action("Register","Users")", user,
                         function (data, status) {

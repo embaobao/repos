@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using CTEP.Filter;
 
 namespace CTEP
 {
@@ -8,7 +9,7 @@ namespace CTEP
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-             
+            filters.Add(new AdminAuthorizeAttribute());
         }
     }
 }

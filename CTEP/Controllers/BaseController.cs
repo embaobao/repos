@@ -10,6 +10,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Reflection;
 using System.Linq.Expressions;
 
+
 namespace CTEP.Controllers
 {
     public class BaseController : Controller
@@ -31,6 +32,21 @@ namespace CTEP.Controllers
                     CallContext.SetData("db", db);
                 }
                 return db;
+            }
+        }
+        public CTEMPEntities db2
+        {
+            get {
+                CTEMPEntities db2 = null;
+                if (HttpContext.Items["db2"] == null)
+                {
+                    db2 = new CTEMPEntities();
+                    HttpContext.Items["db2"] = db2;
+                }
+                else {
+                    db2 = HttpContext.Items["db2"] as  CTEMPEntities;
+                }
+                return db2;
             }
         }
 
@@ -157,28 +173,12 @@ namespace CTEP.Controllers
             try
             {
                 Type t = typeof(T);
-
                 obj = Activator.CreateInstance(t);
-
-
                 obj = oObj;
-                ////取得ID字段 
-                //FieldInfo fi = t.GetField(key);
-                ////给ID字段赋值 
-                //fi.SetValue(obj, "k001");
-
                 //取得属性 
                 PropertyInfo pi = t.GetProperty(key);
-
-
                 //给属性赋值 
                 pi.SetValue(obj, val, null);
-                ////取得show方法 
-                //MethodInfo mi = t.GetMethod("show");
-                ////调用show方法 
-                //mi.Invoke(obj, null);
-
-
 
             }
             catch (Exception)

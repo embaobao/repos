@@ -12,6 +12,35 @@
     <input type="hidden" id="displayname" />
     <ul id="discussion"></ul>
 </div>
+
+
+<p>
+    <span>房间号：</span>
+    <input type="text" id="groupId" />
+    <span>用户名：</span>
+    <input type="text" id="userName" />
+    <button id="joinRoom">加入聊天室</button>
+</p>
+<p>
+    <span>消息：</span>
+    <input type="text" id="Groupmessage" />
+    <button id="send">发送</button>
+</p>
+<div>
+    <ul id="contentMsg"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 @section scripts {
     <!--Script references. -->
     <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
@@ -49,5 +78,47 @@
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
+
+
+
+
+    </script>
+
+
+
+    <script type="text/javascript">
+        $(function () {
+
+            var chat = $.connection.chatHub;
+            chat.hubName = 'chatHub';
+            chat.connection.start();
+
+            chat.client.addSomeMessage = function (groupId, detail, userName) {
+                console.info("广播消息：" + detail);
+                $("#contentMsg").append("<li>" + userName + ": " + detail + "</li>");
+            };
+
+            chat.client.addUserIn = function (groupId, userName) {
+                $("#contentMsg").append("<li>" + userName + "进入该聊天室！</li>");
+            };
+
+            $.connection.hub.logging = true;//启动signalr状态功能
+
+            //加入聊天室
+            $("#joinRoom").click(function () {
+                var groupId = $("#groupId").val();
+                var userName = $("#userName").val();
+                chat.server.addToRoom(groupId, userName);
+            });
+
+            //发送消息
+            $("#send").click(function () {
+                var detail = $("#Groupmessage").val();
+                var groupId = $("#groupId").val();
+                var userName = $("#userName").val();
+                chat.server.send(groupId, detail, userName, "1");
+            });
+
+        });
     </script>
 }
