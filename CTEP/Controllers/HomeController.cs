@@ -7,7 +7,7 @@ using CTEP.Filter;
 
 namespace CTEP.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -59,6 +59,22 @@ namespace CTEP.Controllers
             return View();
         }
         public ActionResult Chat()
+        {
+            return View();
+        }
+        public ActionResult Adminvail(string id) {
+            int i = db.Users.Where(x => x.MAIL == id && x.C_ROLE == 2 && x.C_STA == 1).Count();
+            if (i > 0)
+            {
+                Session.Add("admin", id);
+                return View("Admin");
+            }
+            else {
+                return Json("您没有权限！或者错误的输入！");
+            }
+          
+        }
+        public ActionResult ChangePassword()
         {
             return View();
         }

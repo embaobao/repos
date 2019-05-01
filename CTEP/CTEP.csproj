@@ -533,6 +533,9 @@
     <Content Include="Views\EvalutionTemps\Index.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Shared\_AdminPartialPage.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Users\ChangePW.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

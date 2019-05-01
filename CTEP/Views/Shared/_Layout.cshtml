@@ -14,24 +14,37 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                 
                 </button>
                 @Html.ActionLink("课堂评价管理后台程序", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("主页", "Index", "Home")</li>
-                    <li>@Html.ActionLink("评价", "Index", "Evalutions")</li> 
-                    <li>@Html.ActionLink("课程模板", "Index", "CourseTemps")</li>
-                    <li>@Html.ActionLink("评价表", "Index", "evalutionforms")</li>
+                    <li>@Html.ActionLink("用户管理", "Index", "Users")</li>
+                    <li>@Html.ActionLink("用户信息", "Index", "UserInfoes")</li>
+                    <li>@Html.ActionLink("用户绑定管理", "Index", "UserBundTables")</li>
+                    <li>@Html.ActionLink("评价模板管理", "Index", "EvalutionTemps")</li>
+                    <li>@Html.ActionLink("评价管理", "Index", "Evalutions")</li>
+                    <li>@Html.ActionLink("评价表管理", "Index", "EvalutionForms")</li>
+                    <li>@Html.ActionLink("课程模板管理", "Index", "CourseTemps")</li>
+                    <li>@Html.ActionLink("讨论组信息管理", "Index", "Communities")</li>
+                    <li>@Html.ActionLink("学校管理", "Index", "Universities")</li>
+                    <li>@Html.ActionLink("学院管理", "Index", "Academies")</li>
+                    <li>@Html.ActionLink("年级管理", "Index", "Grades")</li>
+                    <li>@Html.ActionLink("班级管理", "Index", "ClassNames")</li>
                     <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
+    <div class="container body-content" style=" margin-top:8rem;">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+     
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 应用程序</p>

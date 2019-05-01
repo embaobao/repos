@@ -183,22 +183,6 @@
     var strDate = y + "-" + m + "-" + d + " " + h + ":" + minutes + ":" + s;
 
 
-    ////加入聊天室
-    //$("#joinRoom").click(function () {
-    //    var groupId = $("#groupId").val();
-    //    var userName = $("#userName").val();
-    //    chat.server.addToRoom(groupId, userName);
-    //});
-
-    ////发送消息
-    //$("#send").click(function () {
-    //    var detail = $("#Groupmessage").val();
-    //    var groupId = $("#groupId").val();
-    //    var userName = $("#userName").val();
-    //    chat.server.send(groupId, detail, userName, "1");
-    //});
-
-
 
 
 
@@ -293,7 +277,6 @@
 
         chat.client.addUserIn = function (groupId, userName) {
             layer.tips(userName+'加入讨论！', "#ef_ms" + groupId);
-          
         };
 
         $.connection.hub.logging = true;//启动signalr状态功能
@@ -311,7 +294,6 @@
                 });
                 //发送消息
                 $(".mssend").click(function (e) {
-
                     GetInfo(function (info) {
                         groupId = $(e.currentTarget).attr("data-groupid");
                         console.log(groupId);

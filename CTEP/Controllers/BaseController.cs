@@ -36,15 +36,17 @@ namespace CTEP.Controllers
         }
         public CTEMPEntities db2
         {
-            get {
+            get
+            {
                 CTEMPEntities db2 = null;
                 if (HttpContext.Items["db2"] == null)
                 {
                     db2 = new CTEMPEntities();
                     HttpContext.Items["db2"] = db2;
                 }
-                else {
-                    db2 = HttpContext.Items["db2"] as  CTEMPEntities;
+                else
+                {
+                    db2 = HttpContext.Items["db2"] as CTEMPEntities;
                 }
                 return db2;
             }
@@ -54,13 +56,36 @@ namespace CTEP.Controllers
 
 
 
+        /// <summary>
+        /// 账户激活邮件
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [Obsolete]
         public bool SendMail(User user)
         {
             return new EMail(user.MAIL).Send(new User { MAIL = user.MAIL, PW = user.PW, C_ROLE = user.C_ROLE, C_STA = 1 });
         }
 
-
+        /// <summary>
+        /// 发送验证码邮件
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <returns></returns>
+        [Obsolete]
+        public bool SendMail(string mail)
+        {
+            try
+            {
+                Session.Add(mail, new EMail(mail).Send());
+            }
+            catch (Exception)
+            {
+                throw;
+                return false;
+            }
+            return true;
+        }
 
         public bool AddData<T>(T val)
         {

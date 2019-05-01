@@ -53,7 +53,7 @@ namespace CTEP.Models
             this.FilePath = string.Empty;
             this.Title = "E.M.B账户激活|测试邮件";
             this.Body = string.Format
-            ("尊敬的{0}！<br/>你的账户激活验证码: {1}", this.UserName, this.RandomNumber);
+            ("尊敬的{0}！<br/>您的账户验证码: {1}", this.UserName, this.RandomNumber);
 
             this.SendClient = new SmtpClient();
             this.Message = new MailMessage();
@@ -98,7 +98,7 @@ namespace CTEP.Models
         }
 
         [Obsolete]
-        public bool Send()
+        public string Send()
         {
             try
             {
@@ -118,7 +118,7 @@ namespace CTEP.Models
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
+                return "erro";
             }
             finally
             {
@@ -127,7 +127,7 @@ namespace CTEP.Models
 
           
             //                Thread.Sleep(1000);
-            return true;
+            return this.RandomNumber;
         }
 
         [Obsolete]

@@ -2,9 +2,72 @@
 @{
     ViewBag.Title = "Admin";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string tip = "block";
+    if (Session["admin"] == null) {
+        Session.Add("admin", "-1");
+    }
+
+
+
+
 }
 
 <h2>课堂评价系统后台管理</h2>
 <h5>尊敬的管理员大人！欢迎您的到来CTEP 后台管理 </h5>
 
-<P>请您输入您的管理码，然后再继续您的操作</P>
+
+
+<div class="container">
+    @{
+        if (!(Session["admin"].ToString() == "-1"))
+        {
+            tip = "none";
+            //Html.RenderPartial("~/Views/Shared/_AdminPartialPage.cshtml");
+        }
+
+    }
+
+    <div style="display:@tip">
+        <p>管理界面需要请您输入您的管理码，然后再继续您的操作</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#codeModal">
+            输入管理码
+        </button>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal fade" id="codeModal" backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">请您输入您的管理码</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 模态框主体 -->
+                <div class="modal-body">
+                    @using (Html.BeginForm("Adminvail", "Home"))
+                    {
+                        @Html.Label("管理码  ");
+                        @Html.TextBox("id")
+                        <input type="submit" value="确定">
+                    }
+                </div>
+
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    if ("@tip"!= "none") {
+         alert('还未通过管理员验证，请输入管理码验证身份！ ');
+    }
+   
+</script>

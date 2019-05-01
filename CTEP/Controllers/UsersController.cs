@@ -10,7 +10,7 @@ using CTEP.Models;
 using CTEP.Filter;
 
 namespace CTEP.Controllers
-{   [AuthorActionFilterAttribute]
+{
     public class UsersController : BaseController
     {
 
@@ -21,9 +21,9 @@ namespace CTEP.Controllers
 
 
         [HttpGet]
-        public ActionResult TEST(int ? page,int ? limit)
+        public ActionResult TEST(int? page, int? limit)
         {
-            return Json(new MsItem(db.Users.ToList()) { } ,JsonRequestBehavior.AllowGet);
+            return Json(new MsItem(db.Users.ToList()) { }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult IsMail(string MAIL)
         {
@@ -31,27 +31,28 @@ namespace CTEP.Controllers
 
         }
 
-        public ActionResult Login([Bind(Include = "ID,MAIL,PW,C_ROLE,C_STA")] User user) {
+        public ActionResult Login([Bind(Include = "ID,MAIL,PW,C_ROLE,C_STA")] User user)
+        {
             int i = HasMail(user.MAIL);
-            if (i>0)
+            if (i > 0)
             {
-              User u= db.Users.Find(i);
-                if (user.PW == u.PW&&user.C_ROLE==u.C_ROLE&&u.C_STA==1)
+                User u = db.Users.Find(i);
+                if (user.PW == u.PW && user.C_ROLE == u.C_ROLE && u.C_STA == 1)
                 {
                     return Json(u);//返回对象
                 }
                 else
                 {
-                    return Json(new User() { ID=-1});//密码不对
-                 }
-                
+                    return Json(new User() { ID = -1 });//密码不对
+                }
+
             }
-            return  Json(new User() { ID = -2 }); //至少一个不对
+            return Json(new User() { ID = -2 }); //至少一个不对
         }
         [HttpGet]
         public ActionResult Info(int? id)
         {
-            
+
             return Json(db.UserInfoes.Where(x => x.I_UID == id).FirstOrDefault(), JsonRequestBehavior.AllowGet);
         }
 
@@ -100,6 +101,55 @@ namespace CTEP.Controllers
             return Json(true);
         }
 
+        [HttpGet]
+        [Obsolete]
+        public ActionResult SendRadom(string mail)
+        {
+            if (HasMail(mail) > 0)
+            {
+                return SendMail(mail) ? Json(true, JsonRequestBehavior.AllowGet) : Json(false, JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public ActionResult ChangePW(string mail, string number, string pw)
+        {
+            try
+            {
+                int userindex = HasMail(mail);
+
+                if (userindex > 0)
+                {
+                    if (Session[mail].ToString() == number)
+                    {
+                        if (ChangeData<User>(SetObject<User, string>(db.Users.Find(userindex), "PW", pw)))
+                        {
+                            return Json(true);
+                        }
+                        else
+                        {
+                            return Json(false);
+                        };
+                    }
+                    else
+                    {
+                        return Json(-1);
+                    }
+                }
+                else
+                {
+                    return Json(-2);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+
 
         [HttpGet]
         public ActionResult AccountActive(string user)
@@ -128,6 +178,10 @@ namespace CTEP.Controllers
             return View();
         }
 
+        public ActionResult ChangePw()
+        {
+            return View();
+        }
 
 
 

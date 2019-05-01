@@ -156,7 +156,7 @@
                 <div class="card-footer" style=" background: white;">
                     <p>
                         <small>EMB课堂教学评价管理平台</small>
-                        <a id="changePw" href="#" data-toggle="tooltip" data-placement="bottom" title="(ง •_•)ง忘记密码点我哦!">
+                        <a id="changePw" href="../Home/ChangePassword" data-toggle="tooltip" data-placement="bottom" title="(ง •_•)ง忘记密码点我哦!">
                             <img src="../Content/images/findpw.png" width="28px" height="28px" />
                         </a>
                     </p>
@@ -254,14 +254,16 @@
 
 
 
-            //                 changeIco(emilIco,"Lock-Mail");
-            //                 changeIco(pwIco,"Lock-Screen")
-            //
+        
 
 
             roleVal.bind("input propertychange", function (event) {
                 user.C_ROLE = roleVal.val();
                 console.log("角色设定:" + user.C_ROLE);
+                if (user.C_ROLE === 2) {
+                    window.location.href = "../Home/Admin";
+                }
+
             });
 
 

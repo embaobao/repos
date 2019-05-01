@@ -11,7 +11,7 @@ using CTEP.Models;
 
 namespace CTEP.Controllers
 {
-    [AuthorActionFilterAttribute]
+
     public class UserInfoesController : BaseController
     {
 
