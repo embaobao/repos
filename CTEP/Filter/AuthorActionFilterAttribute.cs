@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using CTEP.Models;
 namespace CTEP.Filter
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
@@ -43,7 +44,7 @@ namespace CTEP.Filter
             //string id = filterContext.HttpContext.Request.QueryString["admin"];
             string controller = filterContext.RouteData.Values["controller"].ToString();
             string action = filterContext.RouteData.Values["action"].ToString();
-
+            AppLog.Info(string.Format("请求记录->控制器：{0} 方法 {1}",controller,action));
             List<string> AdminActionslist = new List<string>() { "Index", "Details ", "Create ", "Edit ", "Delete ", "DeleteConfirmed ", "Dispose " };
             List<string> NoneAdminController = new List<string>() { "Base", "Public ", "Home" };
 

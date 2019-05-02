@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -186,6 +189,7 @@
     <Compile Include="Models\Academy.cs">
       <DependentUpon>CTEMP.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppLog.cs" />
     <Compile Include="Models\ClassName.cs">
       <DependentUpon>CTEMP.tt</DependentUpon>
     </Compile>
@@ -474,6 +478,7 @@
     <Content Include="layui\font\iconfont.ttf" />
     <Content Include="layui\font\iconfont.woff" />
     <Content Include="Handler1.ashx" />
+    <Content Include="log4net.config" />
     <None Include="packages.config" />
     <Content Include="Views\Users\AccountActive.cshtml" />
     <Content Include="Views\UserInfoes\Create.cshtml" />
